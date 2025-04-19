@@ -1,0 +1,13 @@
+@import url('src/app/variables');
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+
+.createArticleItem.createArticleItem { //For higher specificity
+  color: $color-primary;
+}

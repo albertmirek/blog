@@ -4,7 +4,7 @@ import { FC } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { classNames } from "@/lib/classNames";
-import * as styles from "./styles.module.scss";
+import styles from "./styles.module.scss";
 
 type NavItemProps = {
   href: string;

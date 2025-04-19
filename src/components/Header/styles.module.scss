@@ -1,0 +1,44 @@
+@import url('src/app/variables');
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  background-color: $color-background-light;
+}
+
+.left {
+  display: flex;
+  padding: 3px 0 3px 225px;
+
+}
+
+.navigationItemsWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 4px 0 0 32px;
+
+  > a:first-child {
+    padding: 11px 0 11px 7px;
+  }
+
+  > a:last-child {
+    padding: 11px 7px 11px 0;
+  }
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  padding-right: 225px;
+}
+
+//for higher specificity (passed class to child)
+.loginItem .loginItem {
+  color: $color-primary;
+
+  &::after {
+    content: ' →';
+  }
+}
