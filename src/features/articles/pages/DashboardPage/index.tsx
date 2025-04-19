@@ -1,3 +1,10 @@
+import { Header } from "@/components/Header";
+
 export function DashboardPage() {
-  return <h1>Dashboard</h1>;
+  return (
+    <>
+      <Header />
+      <main></main>
+    </>
+  );
 }

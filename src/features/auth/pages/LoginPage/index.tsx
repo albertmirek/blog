@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { Header } from "@/components/Header";
 
-export const AboutPage: FC = () => {
+export const LoginPage: FC = () => {
   return (
     <>
       <Header />
-      <h1>About page</h1>
+      <h1>Login page</h1>
     </>
   );
 };
