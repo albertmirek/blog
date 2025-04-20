@@ -1,21 +1,21 @@
 import { FC } from "react";
-import Image from "next/image";
 import styles from "./styles.module.scss";
 import { Heading } from "@/ui/Heading";
 import Link from "next/link";
 import { format } from "date-fns";
 import { ArticleDetail } from "@/features/articles/lib/getArticleDetail.server";
+import { ProxyImage } from "@/ui/ProxyImage";
 type Props = ArticleDetail;
 
 export const ArticleBigCard: FC<Props> = (props: Props) => {
   return (
     <article className={styles.card}>
-      <Image
-        src={`/api/image/${props.imageId}`}
-        alt={""}
+      <ProxyImage
+        alt={`${props.title} cover image`}
         width={272}
         height={244}
         style={{ borderRadius: 4 }}
+        imageId={props.imageId}
       />
       <div className={styles.contentWrapper}>
         <Heading headingLevelStyle={4} headingLevel={2}>
