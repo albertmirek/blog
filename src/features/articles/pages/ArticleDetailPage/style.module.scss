@@ -1,0 +1,24 @@
+@import 'src/app/variables';
+
+.wrapper {
+  padding: 64px 0 64px 225px;
+  display: flex;
+  flex-direction: column;
+  gap: 59px;
+}
+
+
+.articleWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 760px;
+}
+
+.infoWrapper {
+  display: flex;
+  gap: 12px;
+  color: $color-text-secondary;
+  font-size: 12px;
+  line-height: 20px;
+}
