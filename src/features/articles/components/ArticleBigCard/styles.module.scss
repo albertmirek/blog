@@ -1,0 +1,54 @@
+@import 'src/app/variables';
+
+.card {
+  display: flex;
+  gap: 24px;
+  width: 860px;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.infoWrapper {
+  color: $color-text-secondary;
+  font-size: 14px;
+  line-height: 20px;
+  display: flex;
+  gap: 12px;
+}
+
+
+.perex {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+}
+
+.bottomWrapper {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.link {
+  padding: 4px 8px;
+  color: $color-primary;
+  font-size: 14px;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+.comments {
+  font-size: 14px;
+  line-height: 20px;
+  color: $color-text-secondary;
+}
+
+
