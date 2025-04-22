@@ -3,7 +3,7 @@ import styles from "./styles.module.scss";
 
 interface Props {
   headingLevelStyle: 1 | 4;
-  headingLevel: 1 | 2 | 3;
+  headingLevel: 1 | 2 | 3 | 4;
   children: React.ReactNode;
 }
 
@@ -28,5 +28,7 @@ export const Heading = (props: Props) => {
       return <h2 className={getHeadingLevelClass()}>{props.children}</h2>;
     case 3:
       return <h3 className={getHeadingLevelClass()}>{props.children}</h3>;
+    case 4:
+      return <h4 className={getHeadingLevelClass()}>{props.children}</h4>;
   }
 };

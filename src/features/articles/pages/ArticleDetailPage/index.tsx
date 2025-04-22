@@ -6,6 +6,7 @@ import { getArticleDetail } from "@/features/articles/lib/getArticleDetail.serve
 import { format } from "date-fns";
 import { ProxyImage } from "@/ui/ProxyImage";
 import { HtmlRenderer } from "@/ui/HtmlRenderer";
+import { CommentSection } from "@/features/articles/components/CommentSection";
 export async function ArticleDetailPage({
   params,
 }: {
@@ -18,7 +19,7 @@ export async function ArticleDetailPage({
     <>
       <Header />
       <div className={styles.wrapper}>
-        <main>
+        <main className={styles.container}>
           <article className={styles.articleWrapper}>
             <Heading headingLevel={1} headingLevelStyle={1}>
               {article.title}
@@ -36,6 +37,21 @@ export async function ArticleDetailPage({
             />
             <HtmlRenderer htmlString={article.content} />
           </article>
+          <CommentSection
+            articleId={id}
+            initialComments={[
+              {
+                commentId: "1",
+                articleId: article.articleId,
+                postedAt: new Date(Date.now() - 1000 * (60 * 5)),
+                content:
+                  "In its flawless grace and superior self-sufficiency I have seen a symbol of the perfect beauty and bland impersonality of the universe itself, objectively considered, and in its air of silent mystery there resides for me all the wonder and fascination of the unknown",
+                author: "Albert Mírek",
+                score: 42,
+              },
+            ]}
+          />
+          {/*TODO*/}
         </main>
       </div>
     </>

@@ -1,5 +1,9 @@
 @import 'src/app/variables';
 
+.container {
+  max-width: 760px;
+}
+
 .wrapper {
   padding: 64px 0 64px 225px;
   display: flex;
@@ -12,7 +16,6 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  max-width: 760px;
 }
 
 .infoWrapper {

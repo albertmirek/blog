@@ -1,0 +1,60 @@
+@import 'src/app/variables';
+
+
+.wrapper {
+  display: flex;
+  width: 760px;
+  gap: 28px;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.authorWrapper {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.authorName {
+  color: $color-text-body;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.dateSub {
+  font-size: 14px;
+  line-height: 20px;
+  color: $color-text-secondary;
+}
+
+.content {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.scoreWrapper {
+  display: flex;
+  gap: 8px;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.scoringButton {
+  border: none;
+  padding: 0;
+  background-color: inherit;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.divider {
+  border-left: 1px solid $border-light;
+  margin: 4px 0;
+}

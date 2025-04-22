@@ -1,0 +1,17 @@
+@import 'src/app/variables';
+
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-top: 25px;
+  border-top: 1px solid $border-light;
+}
+
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}

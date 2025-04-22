@@ -4,5 +4,7 @@ module.exports = {
     "selector-class-pattern": null,
     // Turn off the import-notation rule completely:
     "import-notation": null,
+    "declaration-property-value-no-unknown": null,
+    "declaration-property-value-disallowed-list": null,
   },
 };
