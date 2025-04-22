@@ -4,8 +4,9 @@ import styles from "./styles.module.scss";
 import { ArticleListing } from "@/features/articles/components/ArticleListing";
 import { getArticles } from "@/features/articles/lib/getArticles.server";
 import { getArticleDetail } from "@/features/articles/lib/getArticleDetail.server";
+import { withAuth } from "@/features/auth/hoc/withAuth";
 
-export async function DashboardPage() {
+async function Page() {
   const articles = await getArticles();
   const articleIds = articles.map((_) => _.articleId);
 
@@ -25,3 +26,5 @@ export async function DashboardPage() {
     </>
   );
 }
+
+export const DashboardPage = withAuth(Page);

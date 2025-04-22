@@ -7,11 +7,8 @@ import { format } from "date-fns";
 import { ProxyImage } from "@/ui/ProxyImage";
 import { HtmlRenderer } from "@/ui/HtmlRenderer";
 import { CommentSection } from "@/features/articles/components/CommentSection";
-export async function ArticleDetailPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+import { withAuth } from "@/features/auth/hoc/withAuth";
+async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const article = await getArticleDetail(id);
 
@@ -57,3 +54,5 @@ export async function ArticleDetailPage({
     </>
   );
 }
+
+export const ArticleDetailPage = withAuth(Page);
