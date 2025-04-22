@@ -64,7 +64,7 @@ export const LoginForm = () => {
               <FormInput
                 name={"username"}
                 type={"username"}
-                placeholder={"text"}
+                placeholder={"JanNovak"}
                 label={"Username"}
               />
               <FormInput
@@ -91,8 +91,8 @@ export const LoginForm = () => {
       )}
       {redirected && (
         <p className={styles.expiratedSessionOrError}>
-          * it seems you&#39;re session was terminated due to
-          expiration,&nbsp;please login again
+          * it seems you&#39;re session was terminated or you tried to access
+          protected page,&nbsp;please login
         </p>
       )}
     </div>
