@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 
 interface Props {
-  headingLevelStyle: 1 | 4;
+  headingLevelStyle: 1 | 3 | 4;
   headingLevel: 1 | 2 | 3 | 4;
   children: React.ReactNode;
 }
@@ -16,6 +16,8 @@ export const Heading = (props: Props) => {
         return styles.heading2;
       case 3:
         return styles.heading3;*/
+      case 3:
+        return styles.heading3;
       case 4:
         return styles.heading4;
     }
