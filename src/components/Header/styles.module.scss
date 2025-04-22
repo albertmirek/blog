@@ -35,7 +35,7 @@
 }
 
 //for higher specificity (passed class to child)
-.loginItem .loginItem {
+.loginItem.loginItem {
   color: $color-primary;
 
   &::after {
