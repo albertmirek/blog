@@ -6,5 +6,6 @@ module.exports = {
     "import-notation": null,
     "declaration-property-value-no-unknown": null,
     "declaration-property-value-disallowed-list": null,
+    "color-named": null,
   },
 };
