@@ -1,0 +1,16 @@
+@import 'src/app/variables';
+
+.button {
+  padding: 6px 12px;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+}
+
+.primary {
+  background-color: $background-primary;
+}
+
+.secondary {
+  background-color: $background-secondary;
+}
