@@ -1,4 +1,5 @@
-import { FC } from "react";
+"use client";
+import React, { FC } from "react";
 import { classNames } from "@/lib/classNames";
 import styles from "./styles.module.scss";
 
@@ -7,16 +8,29 @@ interface Props {
   type?: "submit" | "reset" | "button";
   children: React.ReactNode;
   color: "primary" | "secondary";
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  useSpan?: boolean;
 }
 export const Button: FC<Props> = (props: Props) => {
-  return (
+  return props.useSpan ? (
+    <span
+      className={classNames(
+        styles.button,
+        props.color === "primary" ? styles.primary : styles.secondary,
+      )}
+      onClick={props.onClick}
+    >
+      {props.children}
+    </span>
+  ) : (
     <button
-      type="submit"
+      type={props.type}
       disabled={props.disabled}
       className={classNames(
         styles.button,
         props.color === "primary" ? styles.primary : styles.secondary,
       )}
+      onClick={props.onClick}
     >
       {props.children}
     </button>
