@@ -1,5 +1,16 @@
 @import 'src/app/variables';
 
+.headingWrapper {
+  display: flex;
+  gap: 32px;
+  flex-direction: column;
+
+  @media #{$screen-min-m} {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
 .heading1 {
   font-weight: 500;
   font-size: 40px;

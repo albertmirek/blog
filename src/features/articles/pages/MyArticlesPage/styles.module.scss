@@ -1,19 +1,5 @@
 @import 'src/app/variables';
 
-
-
-.headingWrapper {
-  display: flex;
-  gap: 32px;
-  flex-direction: column;
-
-  @media #{$screen-min-m} {
-    flex-direction: row;
-    align-items: center;
-  }
-}
-
-
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -31,7 +17,7 @@
   }
 
   th,
- td {
+  td {
     padding: 0 2px;
     border-bottom: 1px solid $border-light;
     text-align: left;

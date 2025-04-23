@@ -12,23 +12,27 @@ import { getArticlesWithComments } from "@/features/articles/lib/getArticlesWith
 async function Page() {
   const articlesWithComments = await getArticlesWithComments();
 
+  const CreateArticleButton = (
+    <Link href={Routes.CREATE_ARTICLE}>
+      <Button color={"primary"} useSpan={true}>
+        Create new article
+      </Button>
+    </Link>
+  );
+
   /*TODO*/
   return (
     <>
       <Header />
       <main>
         <DefaultScreenWrapper>
-          <div className={styles.headingWrapper}>
-            <Heading headingLevelStyle={1} headingLevel={1}>
-              My articles - still lot things to do
-            </Heading>
-            <Link href={Routes.CREATE_ARTICLE}>
-              <Button color={"primary"} useSpan={true}>
-                Create new article
-              </Button>
-            </Link>
-          </div>
-
+          <Heading
+            headingLevelStyle={1}
+            headingLevel={1}
+            elementToRight={CreateArticleButton}
+          >
+            My articles - still lot things to do
+          </Heading>
           <table className={styles.table}>
             <thead>
               <tr>
