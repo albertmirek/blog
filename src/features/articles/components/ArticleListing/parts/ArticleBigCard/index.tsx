@@ -5,6 +5,7 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { ArticleDetail } from "@/features/articles/lib/getArticleDetail.server";
 import { ProxyImage } from "@/ui/ProxyImage";
+import { Routes } from "@/consts/routes";
 type Props = ArticleDetail;
 
 export const ArticleBigCard: FC<Props> = (props: Props) => {
@@ -28,7 +29,10 @@ export const ArticleBigCard: FC<Props> = (props: Props) => {
         </span>
         <p className={styles.perex}>{props.perex}</p>
         <div className={styles.bottomWrapper}>
-          <Link className={styles.link} href={`/article/${props.articleId}`}>
+          <Link
+            className={styles.link}
+            href={Routes.ARTICLE_DETAIL(props.articleId)}
+          >
             Read whole article
           </Link>
           <span className={styles.comments}>

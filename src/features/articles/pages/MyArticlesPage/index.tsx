@@ -61,7 +61,12 @@ async function Page() {
                     <span>{article.comments.length}</span>
                   </td>
                   <td className={styles.actions}>
-                    <button className={styles.iconButton}>✏️️</button>
+                    <a
+                      href={Routes.EDIT_ARTICLE(article.articleId)}
+                      className={styles.iconButton}
+                    >
+                      ✏️️
+                    </a>
                     <button className={styles.iconButton}>🗑️</button>
                   </td>
                 </tr>
