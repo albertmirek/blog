@@ -1,0 +1,23 @@
+@import 'src/app/variables';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 32px 16px 16px 32px;
+  gap: 32px;
+
+  @media #{$screen-min-m} {
+    gap: 54px;
+    padding: 64px 0 64px 140px;
+  }
+
+  @media #{$screen-min-l} {
+    gap: 54px;
+    padding: 64px 0 64px 225px;
+  }
+
+  @media #{$screen-min-xl} {
+    gap: 54px;
+    padding: 64px 0 64px 500px;
+  }
+}

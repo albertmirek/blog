@@ -1,10 +1,10 @@
 import { Header } from "@/components/Header";
 import { Heading } from "../../../../ui/Heading";
-import styles from "./styles.module.scss";
 import { ArticleListing } from "@/features/articles/components/ArticleListing";
 import { getArticles } from "@/features/articles/lib/getArticles.server";
 import { getArticleDetail } from "@/features/articles/lib/getArticleDetail.server";
 import { withAuth } from "@/features/auth/hoc/withAuth";
+import { DefaultScreenWrapper } from "@/ui/DefaultScreenWrapper";
 
 async function Page() {
   const articles = await getArticles();
@@ -17,11 +17,13 @@ async function Page() {
   return (
     <>
       <Header />
-      <main className={styles.wrapper}>
-        <Heading headingLevel={1} headingLevelStyle={1}>
-          Recent articles
-        </Heading>
-        <ArticleListing items={articlesWithComments} />
+      <main>
+        <DefaultScreenWrapper>
+          <Heading headingLevel={1} headingLevelStyle={1}>
+            Recent articles
+          </Heading>
+          <ArticleListing items={articlesWithComments} />
+        </DefaultScreenWrapper>
       </main>
     </>
   );

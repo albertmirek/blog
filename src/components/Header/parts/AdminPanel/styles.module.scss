@@ -4,7 +4,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 40px;
+  gap: 16px;
+
+  @media #{$screen-min-m} {
+    gap: 24px;
+  }
+
+  @media #{$screen-min-l} {
+    gap: 40px;
+  }
 }
 
 

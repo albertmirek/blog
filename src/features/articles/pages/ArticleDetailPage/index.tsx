@@ -8,6 +8,7 @@ import { ProxyImage } from "@/ui/ProxyImage";
 import { HtmlRenderer } from "@/ui/HtmlRenderer";
 import { CommentSection } from "@/features/articles/components/CommentSection";
 import { withAuth } from "@/features/auth/hoc/withAuth";
+import { DefaultScreenWrapper } from "@/ui/DefaultScreenWrapper";
 async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const article = await getArticleDetail(id);
@@ -15,7 +16,7 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
   return (
     <>
       <Header />
-      <div className={styles.wrapper}>
+      <DefaultScreenWrapper>
         <main className={styles.container}>
           <article className={styles.articleWrapper}>
             <Heading headingLevel={1} headingLevelStyle={1}>
@@ -50,7 +51,7 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
           />
           {/*TODO*/}
         </main>
-      </div>
+      </DefaultScreenWrapper>
     </>
   );
 }

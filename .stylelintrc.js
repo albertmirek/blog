@@ -7,5 +7,6 @@ module.exports = {
     "declaration-property-value-no-unknown": null,
     "declaration-property-value-disallowed-list": null,
     "color-named": null,
+    "media-query-no-invalid": null,
   },
 };
