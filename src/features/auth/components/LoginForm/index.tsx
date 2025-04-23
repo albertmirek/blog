@@ -49,9 +49,12 @@ export const LoginForm = () => {
                 const data = await res.json();
                 throw new Error(data.message || "Login failed");
               }
-              console.log(res);
 
-              router.push(Routes.DASHBOARD);
+              if (res.ok) {
+                router.push(Routes.DASHBOARD);
+              } else {
+                setError("Login failed");
+              }
             } catch (err) {
               setError(String(err));
             } finally {

@@ -4,8 +4,11 @@ import { FC } from "react";
 import { Routes } from "@/consts/routes";
 import { NavItem } from "@/components/Header/parts/NavItem";
 import { AdminPanel } from "@/components/Header/parts/AdminPanel";
+import { cookies } from "next/headers";
 
-export const Header: FC = () => {
+export const Header: FC = async () => {
+  const token = (await cookies()).get("accessToken")?.value;
+
   return (
     <header>
       <nav className={styles.container}>
@@ -17,15 +20,14 @@ export const Header: FC = () => {
           </div>
         </div>
         <div className={styles.right}>
-          {/*TODO is auth?*/}
-          {false ? (
+          {token && token !== "" ? (
+            <AdminPanel />
+          ) : (
             <NavItem
               href={Routes.LOGIN}
               name={"Log in"}
               className={styles.loginItem}
             />
-          ) : (
-            <AdminPanel />
           )}
         </div>
       </nav>
