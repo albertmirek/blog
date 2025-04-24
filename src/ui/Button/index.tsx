@@ -14,6 +14,7 @@ interface Props {
 export const Button: FC<Props> = (props: Props) => {
   return props.useSpan ? (
     <span
+      role={"button"}
       className={classNames(
         styles.button,
         props.color === "primary" ? styles.primary : styles.secondary,
