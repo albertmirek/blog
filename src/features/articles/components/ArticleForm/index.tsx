@@ -1,6 +1,6 @@
 "use client";
 import * as Yup from "yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Form, Formik, FormikProps, FormikValues } from "formik";
 import dynamic from "next/dynamic";
@@ -9,6 +9,7 @@ import { ImageInput } from "@/ui/ImageInput";
 import { Routes } from "@/consts/routes";
 import { uploadImage } from "@/features/images/lib/uploadImage";
 import removeMd from "remove-markdown";
+import { Article } from "@/features/articles/lib/getArticles.server";
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
@@ -17,64 +18,126 @@ const ArticleFormSchema = Yup.object().shape({
   content: Yup.string().required("Content cannot be empty"),
 });
 
+//TODO split to union of 2 types
 interface ArticleFormProps {
   type: "edit" | "create";
-  innerRef?: React.Ref<FormikProps<FormikValues>>;
+  innerRef: React.Ref<FormikProps<FormikValues>>;
+  intialArticleToEdit?: Pick<
+    Article,
+    "articleId" | "title" | "imageId" | "content"
+  >;
+  setInitialArticle?: (initialArticle: Article) => void;
 }
+
+const getPerex = (content: string) => {
+  return removeMd(content).replace(/\n+/g, " ").trim().slice(0, 312).trim();
+};
 
 export const ArticleForm: React.FC<ArticleFormProps> = (props) => {
   const [image, setImage] = useState<File>();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState<string>("");
   const router = useRouter();
+  const isEditVariant = !!(props.type === "edit" && props.intialArticleToEdit);
+
+  useEffect(() => {
+    if (error && error !== "") {
+      alert(error);
+    }
+  }, [error]);
+
+  const handleCreate = async (values: FormikValues) => {
+    if (!image) {
+      setError("Image cannot be empty");
+      return;
+    }
+
+    const uploadedImageId = (await uploadImage(image))[0].imageId;
+    const perex = getPerex(values.content);
+
+    const res = await fetch("/api/articles", {
+      method: "POST",
+      body: JSON.stringify({
+        title: values.title,
+        content: values.content,
+        perex: perex,
+        imageId: uploadedImageId,
+      }),
+    });
+
+    if (!res.ok) {
+      throw new Error(res.statusText);
+    }
+
+    alert("Article published");
+    router.push(Routes.DASHBOARD);
+  };
+
+  const handleUpdate = async (values: FormikValues) => {
+    let imageIdToUpdate: string | undefined = undefined;
+
+    if (image) {
+      imageIdToUpdate = (await uploadImage(image))[0].imageId;
+    }
+
+    if (
+      values.title !== props.intialArticleToEdit!.title ||
+      values.content !== props.intialArticleToEdit!.content ||
+      !!imageIdToUpdate
+    ) {
+      const perex = getPerex(values.content);
+
+      const res = await fetch(
+        `/api/articles/${props.intialArticleToEdit!.articleId}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({
+            title: values.title,
+            content: values.content,
+            perex: perex,
+            imageId: imageIdToUpdate,
+          }),
+        },
+      );
+      if (!res.ok) {
+        throw new Error(res.statusText);
+      }
+      alert("Article published");
+      router.push(Routes.ARTICLE_DETAIL(props.intialArticleToEdit!.articleId));
+    } else {
+      alert("Nothing to update");
+    }
+  };
 
   return (
     <>
       <Formik
         innerRef={props.innerRef}
-        initialValues={{ title: "", image: "", content: "" }}
+        initialValues={
+          isEditVariant
+            ? {
+                title: props.intialArticleToEdit!.title,
+                content: props.intialArticleToEdit!.content,
+              }
+            : { title: "", content: "" }
+        }
         validationSchema={ArticleFormSchema}
         onSubmit={async (values, { setSubmitting }) => {
           setError("");
           setSubmitting(true);
           try {
-            if (!image) {
-              setError("Image cannot be empty");
-              setSubmitting(false);
-              return;
+            if (props.type === "create") {
+              await handleCreate(values);
+            } else if (props.type === "edit") {
+              await handleUpdate(values);
             }
-
-            const uploadedImageId = (await uploadImage(image))[0].imageId;
-            const perex = removeMd(values.content)
-              .replace(/\n+/g, " ")
-              .trim()
-              .slice(0, 312)
-              .trim();
-            // const purifiedContent =
-            const res = await fetch("/api/articles", {
-              method: "POST",
-              body: JSON.stringify({
-                title: values.title,
-                content: values.content,
-                perex: perex,
-                imageId: uploadedImageId,
-              }),
-            });
-
-            if (!res.ok) {
-              throw new Error(res.statusText);
-            }
-
-            router.push(Routes.DASHBOARD);
           } catch (err) {
-            console.error("Im in error!!!");
             setError(String(err));
           } finally {
             setSubmitting(false);
           }
         }}
       >
-        {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
+        {}
         {({ isSubmitting, values, setFieldValue }) => (
           <Form>
             <FormInput
@@ -82,19 +145,23 @@ export const ArticleForm: React.FC<ArticleFormProps> = (props) => {
               type={"text"}
               placeholder={"Article Title"}
               label={"Title"}
+              disabled={isSubmitting}
             />
             <ImageInput
               name={"image"}
               label={"Featured Image"}
-              setFieldValue={setFieldValue}
               setImage={setImage}
+              existingImageId={props.intialArticleToEdit?.imageId}
+              disabled={isSubmitting}
             />
 
             <div>
               <label>Content (Markdown)</label>
               <MDEditor
+                aria-disabled={isSubmitting}
                 value={values.content}
                 onChange={(value) => setFieldValue("content", value)}
+                hideToolbar={true}
               />
             </div>
           </Form>

@@ -1,0 +1,48 @@
+"use client";
+
+import { Heading } from "@/ui/Heading";
+import { ArticleForm } from "@/features/articles/components/ArticleForm";
+import { useRef, useState } from "react";
+import { FormikProps, FormikValues } from "formik";
+import { Button } from "@/ui/Button";
+import { Article } from "@/features/articles/lib/getArticles.server";
+
+interface Props {
+  article: Article;
+}
+
+export const EditArticlePageClientBoundary = (props: Props) => {
+  const formRef = useRef<FormikProps<FormikValues> | null>(null);
+  const [initialArticle, setInitialArticle] = useState(props.article);
+
+  const PublishArticleButton = (
+    <Button
+      color={"primary"}
+      useSpan={true}
+      type={"submit"}
+      onClick={(e) => {
+        e.preventDefault();
+        formRef.current?.submitForm();
+      }}
+    >
+      Publish Article
+    </Button>
+  );
+  return (
+    <>
+      <Heading
+        headingLevelStyle={1}
+        headingLevel={1}
+        elementToRight={PublishArticleButton}
+      >
+        Edit article
+      </Heading>
+      <ArticleForm
+        type={"edit"}
+        innerRef={formRef}
+        intialArticleToEdit={initialArticle}
+        setInitialArticle={setInitialArticle}
+      />
+    </>
+  );
+};

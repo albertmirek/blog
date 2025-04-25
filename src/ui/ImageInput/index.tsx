@@ -1,17 +1,20 @@
 "use client";
 
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button } from "@/ui/Button";
 import Image from "next/image";
+import { ProxyImage } from "@/ui/ProxyImage";
 
 interface ImageInputProps {
   name: string;
   label: string;
-  setFieldValue: (field: string, value: string) => void;
-  setImage: (file: File) => void;
+  existingImageId?: string;
+  setImage: (file: File | undefined) => void;
+  disabled: boolean;
 }
 export const ImageInput = (props: ImageInputProps) => {
-  const [preview, setPreview] = useState<string>("");
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string>();
+  const [initialImageId, setInitialImageId] = useState(props.existingImageId);
   const ref = useRef<HTMLInputElement | null>(null);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,12 +23,30 @@ export const ImageInput = (props: ImageInputProps) => {
 
     props.setImage(file);
     const imageUrl = URL.createObjectURL(file);
-    setPreview(imageUrl);
+    setInitialImageId(undefined);
+    setImagePreviewUrl(imageUrl);
+  };
+
+  const handleDeleteCurrentImageDelete = (
+    e: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    e.preventDefault();
+
+    props.setImage(undefined);
+    setImagePreviewUrl(undefined);
+    setInitialImageId(undefined);
+  };
+
+  const handleUploadImageClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (ref.current) {
+      ref.current.click();
+    }
   };
 
   return (
     <>
-      <label>Feature image</label>
+      <label>Featured image</label>
       <input
         id={props.name}
         name={props.name}
@@ -34,21 +55,51 @@ export const ImageInput = (props: ImageInputProps) => {
         accept={"images/*"}
         ref={ref}
         onChange={handleOnChange}
+        disabled={props.disabled}
       />
-      {preview && (
-        <Image src={preview} alt={"Preview"} width={112} height={74} />
+      {initialImageId && initialImageId !== "" ? (
+        <ProxyImage
+          width={112}
+          height={74}
+          imageId={initialImageId}
+          alt={"Article image preview"}
+        />
+      ) : (
+        imagePreviewUrl && (
+          <Image
+            src={imagePreviewUrl}
+            alt={"Article image preview"}
+            width={112}
+            height={74}
+          />
+        )
       )}
-      <Button
-        color={"secondary"}
-        onClick={(e) => {
-          e.preventDefault();
-          if (ref.current) {
-            ref.current.click();
-          }
-        }}
-      >
-        Upload an image
-      </Button>
+      {imagePreviewUrl || initialImageId ? (
+        <>
+          <Button
+            color={"primary"}
+            onClick={handleUploadImageClick}
+            disabled={props.disabled}
+          >
+            Upload new
+          </Button>
+          <Button
+            color={"primary"}
+            onClick={handleDeleteCurrentImageDelete}
+            disabled={props.disabled}
+          >
+            Delete
+          </Button>
+        </>
+      ) : (
+        <Button
+          color={"secondary"}
+          onClick={handleUploadImageClick}
+          disabled={props.disabled}
+        >
+          Upload an image
+        </Button>
+      )}
     </>
   );
 };

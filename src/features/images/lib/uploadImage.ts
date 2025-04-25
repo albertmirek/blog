@@ -1,6 +1,6 @@
 import { UploadImageReturnType } from "@/app/api/images/route";
 
-export const uploadImage = async (image: string) => {
+export const uploadImage = async (image: File) => {
   const formData = new FormData();
   formData.append("image", image);
   const res = await fetch(`/api/images`, {

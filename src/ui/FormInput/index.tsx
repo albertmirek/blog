@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, HTMLInputAutoCompleteAttribute } from "react";
 import styles from "@/features/auth/components/LoginForm/styles.module.scss";
 import { ErrorMessage, Field } from "formik";
 import { InputType } from "node:zlib";
@@ -8,6 +8,8 @@ interface Props {
   placeholder: string;
   type: InputType;
   label: string;
+  disabled: boolean;
+  autocomplete?: HTMLInputAutoCompleteAttribute;
 }
 export const FormInput: FC<Props> = (props: Props) => {
   return (
@@ -21,6 +23,8 @@ export const FormInput: FC<Props> = (props: Props) => {
         type={props.type}
         placeholder={props.placeholder}
         className={styles.inputField}
+        disabled={props.disabled}
+        autoComplete={props.autocomplete}
       />
       <ErrorMessage name={props.name}>
         {(msg) => <span className={styles.errorMessage}>{msg}</span>}

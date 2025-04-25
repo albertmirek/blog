@@ -25,7 +25,7 @@ export const Button: FC<Props> = (props: Props) => {
     </span>
   ) : (
     <button
-      type={props.type}
+      type={props.type || "button"}
       disabled={props.disabled}
       className={classNames(
         styles.button,
