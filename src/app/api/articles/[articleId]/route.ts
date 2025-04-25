@@ -11,12 +11,14 @@ type UpdateArticleInputReqBody = {
   content?: string;
 };
 
-type UpdateArticleResBody = {
-  articleId: string;
-  title: string;
-  perex: string;
-  imageId: string;
-  content: string;
+export type UpdateArticleResBody = {
+  data: {
+    articleId: string;
+    title: string;
+    perex: string;
+    imageId: string;
+    content: string;
+  };
 };
 
 export async function PATCH(
@@ -50,7 +52,44 @@ export async function PATCH(
     }
 
     const data = (await res.json()) as UpdateArticleResBody;
-    return NextResponse.json({ res: data }, { status: res.status });
+    return NextResponse.json({ data }, { status: res.status });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "Something went wrong" },
+      { status: 500 },
+    );
+  }
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ articleId: string }> },
+) {
+  try {
+    const { articleId } = await params;
+    const token = await getAccessTokenOrLogout();
+
+    const res = await fetch(`${config.apiEndpoint}/articles/${articleId}`, {
+      method: "DELETE",
+      headers: {
+        "X-API-KEY": config.apiKey,
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (res.status === 403) {
+      redirect(`${Routes.LOGIN}?missingToken=1`);
+    }
+
+    if (!res.ok) {
+      return NextResponse.json(
+        { error: "There was an error with creating article" },
+        { status: res.status },
+      );
+    }
+
+    return new NextResponse(null, { status: 204 });
   } catch (error) {
     console.error(error);
     return NextResponse.json(

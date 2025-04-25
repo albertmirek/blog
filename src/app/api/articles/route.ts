@@ -54,7 +54,10 @@ export async function POST(request: NextRequest) {
 
     const data = (await res.json()) as { articleId: string };
 
-    return NextResponse.json({ res: data.articleId }, { status: res.status });
+    return NextResponse.json(
+      { articleId: data.articleId },
+      { status: res.status },
+    );
   } catch (error) {
     console.error(error);
     return NextResponse.json(
