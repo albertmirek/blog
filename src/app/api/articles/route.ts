@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { redirect } from "next/navigation";
 import { Routes } from "@/consts/routes";
 import config from "@/config";
+import { cookies } from "next/headers";
 
 type CreateArticleInput = {
   title: string;
@@ -29,11 +30,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const token = (await cookies()).get("accessToken")?.value;
+    if (!token || token === "") {
+      redirect(`${Routes.LOGIN}?missingToken=1`);
+    }
+
     const res = await fetch(`${config.apiEndpoint}/articles`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "X-API-KEY": config.apiKey,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(inputs),
     });
@@ -48,7 +55,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    redirect(Routes.DASHBOARD);
+    const data = (await res.json()) as { articleId: string };
+
+    return NextResponse.json({ res: data.articleId }, { status: res.status });
   } catch (error) {
     console.error(error);
     return NextResponse.json(
