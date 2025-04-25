@@ -69,12 +69,16 @@ export const LoginForm = () => {
                 type={"username"}
                 placeholder={"JanNovak"}
                 label={"Username"}
+                disabled={isSubmitting}
+                autocomplete={"username"}
               />
               <FormInput
                 name={"password"}
                 type={"password"}
                 placeholder={"********"}
                 label={"Password"}
+                disabled={isSubmitting}
+                autocomplete={"current-password"}
               />
               <div className={styles.buttonWrapper}>
                 <Button
