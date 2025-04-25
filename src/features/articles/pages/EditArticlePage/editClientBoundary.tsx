@@ -2,7 +2,7 @@
 
 import { Heading } from "@/ui/Heading";
 import { ArticleForm } from "@/features/articles/components/ArticleForm";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { FormikProps, FormikValues } from "formik";
 import { Button } from "@/ui/Button";
 import { Article } from "@/features/articles/lib/getArticles.server";
@@ -13,7 +13,6 @@ interface Props {
 
 export const EditArticlePageClientBoundary = (props: Props) => {
   const formRef = useRef<FormikProps<FormikValues> | null>(null);
-  const [initialArticle, setInitialArticle] = useState(props.article);
 
   const PublishArticleButton = (
     <Button
@@ -40,8 +39,7 @@ export const EditArticlePageClientBoundary = (props: Props) => {
       <ArticleForm
         type={"edit"}
         innerRef={formRef}
-        intialArticleToEdit={initialArticle}
-        setInitialArticle={setInitialArticle}
+        intialArticleToEdit={props.article}
       />
     </>
   );

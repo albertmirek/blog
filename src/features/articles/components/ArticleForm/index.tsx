@@ -18,16 +18,24 @@ const ArticleFormSchema = Yup.object().shape({
   content: Yup.string().required("Content cannot be empty"),
 });
 
-//TODO split to union of 2 types
-interface ArticleFormProps {
-  type: "edit" | "create";
-  innerRef: React.Ref<FormikProps<FormikValues>>;
-  intialArticleToEdit?: Pick<
+interface CreateArticleFormProps extends CommonProps {
+  type: "create";
+  intialArticleToEdit?: undefined;
+}
+
+interface EditArticleFormProps extends CommonProps {
+  type: "edit";
+  intialArticleToEdit: Pick<
     Article,
     "articleId" | "title" | "imageId" | "content"
   >;
-  setInitialArticle?: (initialArticle: Article) => void;
 }
+
+interface CommonProps {
+  innerRef: React.Ref<FormikProps<FormikValues>>;
+}
+
+type ArticleFormProps = CreateArticleFormProps | EditArticleFormProps;
 
 const getPerex = (content: string) => {
   return removeMd(content).replace(/\n+/g, " ").trim().slice(0, 312).trim();
