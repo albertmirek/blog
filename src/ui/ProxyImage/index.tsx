@@ -12,7 +12,7 @@ interface Props {
 export const ProxyImage: FC<Props> = (props: Props) => {
   return (
     <Image
-      src={`/api/image/${props.imageId}`}
+      src={`/api/images/${props.imageId}`}
       alt={props.alt}
       width={props.width}
       height={props.height}
