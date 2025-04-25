@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { redirect } from "next/navigation";
 import { Routes } from "@/consts/routes";
 import config from "@/config";
-import { cookies } from "next/headers";
+import { getAccessTokenOrLogout } from "@/features/auth/lib/getAccessToken.server";
 
 type CreateArticleInput = {
   title: string;
@@ -30,10 +30,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const token = (await cookies()).get("accessToken")?.value;
-    if (!token || token === "") {
-      redirect(`${Routes.LOGIN}?missingToken=1`);
-    }
+    const token = await getAccessTokenOrLogout();
 
     const res = await fetch(`${config.apiEndpoint}/articles`, {
       method: "POST",

@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import config from "@/config";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import { Routes } from "@/consts/routes";
+import { getAccessTokenOrLogout } from "@/features/auth/lib/getAccessToken.server";
 
 type Image = {
   imageId: string;
@@ -25,10 +23,7 @@ export async function POST(request: NextRequest) {
     const forwardFormData = new FormData();
     forwardFormData.append("image", file);
 
-    const token = (await cookies()).get("accessToken")?.value;
-    if (!token || token === "") {
-      redirect(`${Routes.LOGIN}?missingToken=1`);
-    }
+    const token = await getAccessTokenOrLogout();
 
     const res = await fetch(`${config.apiEndpoint}/images`, {
       method: "POST",
