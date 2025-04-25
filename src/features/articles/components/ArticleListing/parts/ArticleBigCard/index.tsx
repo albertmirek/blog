@@ -23,7 +23,7 @@ export const ArticleBigCard: FC<Props> = (props: Props) => {
           {props.title}
         </Heading>
         <span className={styles.infoWrapper}>
-          <span>Todo Author</span>
+          <span>Elisabeth Strain</span>
           <span>•</span>
           <span>{format(props.createdAt, "MM/dd/yy")}</span>
         </span>

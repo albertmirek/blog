@@ -23,7 +23,7 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
               {article.title}
             </Heading>
             <span className={styles.infoWrapper}>
-              <span>Todo Author</span>
+              <span>Elisabeth strain</span>
               <span>•</span>
               <span>{format(article.createdAt, "MM/dd/yy")}</span>
             </span>
