@@ -5,7 +5,7 @@ import { Heading } from "@/ui/Heading";
 import { getArticleDetail } from "@/features/articles/lib/getArticleDetail.server";
 import { format } from "date-fns";
 import { ProxyImage } from "@/ui/ProxyImage";
-import { HtmlRenderer } from "@/ui/HtmlRenderer";
+import { MarkdownRenderer } from "../../../../ui/MarkdownRenderer";
 import { CommentSection } from "@/features/articles/components/CommentSection";
 import { withAuth } from "@/features/auth/hoc/withAuth";
 import { DefaultScreenWrapper } from "@/ui/DefaultScreenWrapper";
@@ -33,7 +33,7 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
               imageId={article.imageId}
               alt={`${article.title} cover image`}
             />
-            <HtmlRenderer htmlString={article.content} />
+            <MarkdownRenderer markdown={article.content} />
           </article>
           <CommentSection
             articleId={id}
