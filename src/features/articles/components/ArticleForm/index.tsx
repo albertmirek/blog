@@ -10,6 +10,7 @@ import { Routes } from "@/consts/routes";
 import { uploadImage } from "@/features/images/lib/uploadImage";
 import removeMd from "remove-markdown";
 import { Article } from "@/features/articles/lib/getArticles.server";
+import { useArticles } from "@/features/articles/hooks/useArticles";
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
@@ -47,6 +48,8 @@ export const ArticleForm: React.FC<ArticleFormProps> = (props) => {
   const router = useRouter();
   const isEditVariant = !!(props.type === "edit" && props.intialArticleToEdit);
 
+  const { createArticle, updateArticle } = useArticles();
+
   useEffect(() => {
     if (error && error !== "") {
       alert(error);
@@ -61,20 +64,12 @@ export const ArticleForm: React.FC<ArticleFormProps> = (props) => {
 
     const uploadedImageId = (await uploadImage(image))[0].imageId;
     const perex = getPerex(values.content);
-
-    const res = await fetch("/api/articles", {
-      method: "POST",
-      body: JSON.stringify({
-        title: values.title,
-        content: values.content,
-        perex: perex,
-        imageId: uploadedImageId,
-      }),
+    await createArticle({
+      title: values.title,
+      content: values.content,
+      perex: perex,
+      imageId: uploadedImageId,
     });
-
-    if (!res.ok) {
-      throw new Error(res.statusText);
-    }
 
     alert("Article published");
     router.push(Routes.DASHBOARD);
@@ -93,22 +88,14 @@ export const ArticleForm: React.FC<ArticleFormProps> = (props) => {
       !!imageIdToUpdate
     ) {
       const perex = getPerex(values.content);
+      await updateArticle({
+        articleId: props.intialArticleToEdit!.articleId,
+        title: values.title,
+        content: values.content,
+        perex: perex,
+        imageId: imageIdToUpdate,
+      });
 
-      const res = await fetch(
-        `/api/articles/${props.intialArticleToEdit!.articleId}`,
-        {
-          method: "PATCH",
-          body: JSON.stringify({
-            title: values.title,
-            content: values.content,
-            perex: perex,
-            imageId: imageIdToUpdate,
-          }),
-        },
-      );
-      if (!res.ok) {
-        throw new Error(res.statusText);
-      }
       alert("Article published");
       router.push(Routes.ARTICLE_DETAIL(props.intialArticleToEdit!.articleId));
     } else {
