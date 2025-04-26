@@ -10,7 +10,17 @@ import { getArticlesWithComments } from "@/features/articles/lib/server/getArtic
 import { ArticlesTableListing } from "@/features/articles/components/ArticlesTableListing";
 
 async function Page() {
-  const articlesWithComments = await getArticlesWithComments();
+  const articlesWithComments = (await getArticlesWithComments()).map(
+    (article) => ({
+      ...article,
+      createdAt: article.createdAt.toISOString(),
+      lastUpdatedAt: article.lastUpdatedAt.toISOString(),
+      comments: article.comments.map((comment) => ({
+        ...comment,
+        postedAt: comment.postedAt.toISOString(),
+      })),
+    }),
+  );
 
   const CreateArticleButton = (
     <Link href={Routes.CREATE_ARTICLE}>
@@ -20,7 +30,6 @@ async function Page() {
     </Link>
   );
 
-  /*TODO*/
   return (
     <>
       <Header />

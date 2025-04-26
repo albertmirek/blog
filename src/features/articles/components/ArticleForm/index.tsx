@@ -71,7 +71,7 @@ export const ArticleForm: React.FC<ArticleFormProps> = (props) => {
     });
 
     alert("Article published");
-    router.push(Routes.DASHBOARD);
+    router.push(Routes.MY_ARTICLES);
   };
 
   const handleUpdate = async (values: FormikValues) => {

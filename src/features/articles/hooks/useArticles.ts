@@ -1,67 +1,33 @@
 "use client";
 
-import { UpdateArticleResBody } from "@/app/api/articles/[articleId]/route";
+import { ApiArticleDetail } from "@/features/articles/lib/server/getArticleDetail.server";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import {
+  deleteArticleAction,
+  setMyArticlesAction,
+} from "@/features/articles/store/slice";
+import { deleteArticle } from "@/features/articles/lib/client/deleteArticle.client";
 
-interface CreateArticleReq {
-  title: string;
-  content: string;
-  perex: string;
-  imageId: string;
-}
+export function useArticles(initialArticles: ApiArticleDetail[]) {
+  const dispatch = useDispatch();
+  const myArticles = useSelector(
+    (state: RootState) => state.articles.myArticles,
+  );
 
-interface UpdateArticleReq {
-  articleId: string;
-  title?: string;
-  content?: string;
-  perex?: string;
-  imageId?: string;
-}
+  useEffect(() => {
+    dispatch(setMyArticlesAction({ articles: initialArticles }));
+  }, [initialArticles, dispatch]);
 
-export function useArticles() {
-  const createArticle = async (input: CreateArticleReq) => {
-    const res = await fetch("/api/articles", {
-      method: "POST",
-      body: JSON.stringify({
-        title: input.title,
-        content: input.content,
-        perex: input.perex,
-        imageId: input.imageId,
-      }),
+  const handleArticleDelete = async (id: string) => {
+    await deleteArticle(id).then((res) => {
+      if (res.ok) {
+        dispatch(deleteArticleAction(id));
+        alert("article deleted");
+      }
     });
-
-    if (!res.ok) {
-      throw new Error(res.statusText);
-    }
-    return res.json() as Promise<{ articleId: string }>;
   };
 
-  const updateArticle = async (input: UpdateArticleReq) => {
-    const res = await fetch(`/api/articles/${input.articleId}`, {
-      method: "PATCH",
-      body: JSON.stringify({
-        title: input.title,
-        content: input.content,
-        perex: input.perex,
-        imageId: input.imageId,
-      }),
-    });
-    if (!res.ok) {
-      throw new Error(res.statusText);
-    }
-
-    return res.json() as Promise<UpdateArticleResBody>;
-  };
-
-  const deleteArticle = async (id: string) => {
-    const res = await fetch(`/api/articles/${id}`, {
-      method: "DELETE",
-    });
-
-    if (!res.ok) {
-      throw new Error(res.statusText);
-    }
-    return res;
-  };
-
-  return { createArticle, updateArticle, deleteArticle };
+  return { myArticles, handleArticleDelete };
 }

@@ -1,18 +1,17 @@
 "use client";
 import { Routes } from "@/consts/routes";
 import React from "react";
-import { ArticleDetail } from "@/features/articles/lib/server/getArticleDetail.server";
+import { ApiArticleDetail } from "@/features/articles/lib/server/getArticleDetail.server";
 import styles from "./styles.module.scss";
 import { TableActionIcon } from "@/features/articles/components/ArticlesTableListing/parts/Icon";
 import { redirect } from "next/navigation";
+import { useArticles } from "@/features/articles/hooks/useArticles";
 
 interface Props {
-  articles: ArticleDetail[];
+  articles: ApiArticleDetail[];
 }
 export const ArticlesTableListing = (props: Props) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {};
-
+  const { myArticles, handleArticleDelete } = useArticles(props.articles);
   return (
     <table className={styles.table}>
       <thead className={styles.tablHead}>
@@ -28,7 +27,7 @@ export const ArticlesTableListing = (props: Props) => {
         </tr>
       </thead>
       <tbody className={styles.tableBody}>
-        {props.articles.map((article, index) => (
+        {myArticles.map((article, index) => (
           <tr key={index}>
             <td className={styles.checkBox}>
               <input type="checkbox" />
@@ -50,7 +49,10 @@ export const ArticlesTableListing = (props: Props) => {
                 icon={"edit"}
                 onClick={() => redirect(Routes.EDIT_ARTICLE(article.articleId))}
               />
-              <TableActionIcon icon={"delete"} onClick={handleDelete} />
+              <TableActionIcon
+                icon={"delete"}
+                onClick={() => handleArticleDelete(article.articleId)}
+              />
             </td>
           </tr>
         ))}

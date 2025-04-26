@@ -1,33 +1,36 @@
-import { Article } from "@/app/api/articles/route";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ApiArticleDetail } from "@/features/articles/lib/server/getArticleDetail.server";
 
 interface ArticleState {
-  allArticles: Article[];
-  myArticles: Article[];
+  myArticles: ApiArticleDetail[];
 }
 
 const initialState: ArticleState = {
-  allArticles: [],
   myArticles: [],
 };
 
-/*Action Payloads*/
 interface SetArticlesActionPayload {
-  articles: Article[];
+  articles: ApiArticleDetail[];
 }
 
 const articleSlice = createSlice({
   name: "articles",
   initialState,
   reducers: {
-    setArticleListing: (
+    setMyArticlesAction: (
       state,
       action: PayloadAction<SetArticlesActionPayload>,
     ) => {
-      state.allArticles = action.payload.articles;
+      state.myArticles = action.payload.articles;
+    },
+    deleteArticleAction: (state, action: PayloadAction<string>) => {
+      state.myArticles = state.myArticles.filter(
+        (article) => article.articleId !== action.payload,
+      );
     },
   },
 });
 
-export const { setArticleListing } = articleSlice.actions;
+export const { setMyArticlesAction, deleteArticleAction } =
+  articleSlice.actions;
 export default articleSlice.reducer;

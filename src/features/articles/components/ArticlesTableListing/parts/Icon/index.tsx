@@ -5,7 +5,7 @@ import { Button } from "@/ui/Button";
 
 interface IconProps {
   icon: "edit" | "delete";
-  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick: () => void;
 }
 export const TableActionIcon = (props: IconProps) => {
   return (
