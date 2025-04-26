@@ -6,7 +6,7 @@ export const sortArticlesByProperty = (
   propertyType: PropertyType,
   order: "asc" | "desc",
 ) => {
-  return articles.sort((a, b) => {
+  return [...articles].sort((a, b) => {
     const stringA = String(a[propertyType]).toLowerCase();
     const stringB = String(b[propertyType]).toLowerCase();
 

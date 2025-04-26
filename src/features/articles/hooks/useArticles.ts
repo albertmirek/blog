@@ -35,9 +35,10 @@ export function useArticles(initialArticles: ApiArticleDetail[]) {
   };
 
   const handleOrderBy = (propertyType: PropertyType, order: "asc" | "desc") => {
+    const sorted = sortArticlesByProperty(myArticles, propertyType, order);
     dispatch(
       setMyArticlesAction({
-        articles: sortArticlesByProperty(myArticles, propertyType, order),
+        articles: sorted,
       }),
     );
   };
