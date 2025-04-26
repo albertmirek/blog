@@ -17,6 +17,7 @@ export const ArticleBigCard: FC<Props> = (props: Props) => {
         height={244}
         style={{ borderRadius: 4 }}
         imageId={props.imageId}
+        priority={true}
       />
       <div className={styles.contentWrapper}>
         <Heading headingLevelStyle={4} headingLevel={2}>

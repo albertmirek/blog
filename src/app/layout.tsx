@@ -25,6 +25,7 @@ export default function RootLayout({
           content="MyWebSite"
           key={"apple-mobile-web-app-title"}
         />
+        <meta name="description" content="Single tenant blogging application" />
       </Head>
       <body>
         <ReduxProvider>{children}</ReduxProvider>

@@ -32,6 +32,7 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
               height={504}
               imageId={article.imageId}
               alt={`${article.title} cover image`}
+              priority={true}
             />
             <MarkdownRenderer markdown={article.content} />
           </article>

@@ -7,6 +7,7 @@ interface Props {
   imageId: string;
   alt: string;
   style?: CSSProperties;
+  priority?: boolean;
 }
 
 export const ProxyImage: FC<Props> = (props: Props) => {
@@ -17,6 +18,7 @@ export const ProxyImage: FC<Props> = (props: Props) => {
       width={props.width}
       height={props.height}
       style={props.style}
+      priority={props.priority}
     />
   );
 };
