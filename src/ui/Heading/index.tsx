@@ -2,8 +2,8 @@ import React from "react";
 import styles from "./styles.module.scss";
 
 interface Props {
-  headingLevelStyle: 1 | 3 | 4;
-  headingLevel: 1 | 2 | 3 | 4;
+  headingLevelStyle: 1 | 3 | 4 | 6;
+  headingLevel: 1 | 2 | 3 | 4 | 6;
   children: React.ReactNode;
   elementToRight?: React.ReactElement;
 }
@@ -21,6 +21,8 @@ export const Heading = (props: Props) => {
         return styles.heading3;
       case 4:
         return styles.heading4;
+      case 6:
+        return styles.heading6;
     }
   };
 
@@ -34,6 +36,8 @@ export const Heading = (props: Props) => {
         return <h3 className={getHeadingLevelClass()}>{props.children}</h3>;
       case 4:
         return <h4 className={getHeadingLevelClass()}>{props.children}</h4>;
+      case 6:
+        return <h6 className={getHeadingLevelClass()}>{props.children}</h6>;
     }
   };
 

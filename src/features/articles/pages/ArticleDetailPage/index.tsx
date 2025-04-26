@@ -9,6 +9,9 @@ import { MarkdownRenderer } from "@/ui/MarkdownRenderer";
 import { CommentSection } from "@/features/comments/components/CommentSection";
 import { DefaultScreenWrapper } from "@/ui/DefaultScreenWrapper";
 import { getAccessTokenOrLogout } from "@/features/auth/lib/getAccessToken.server";
+import { Suspense } from "react";
+import { Loading } from "@/ui/Loading";
+import { RelatedArticlesListing } from "@/features/articles/components/RelatedArticlesListing";
 export async function ArticleDetailPage({
   params,
 }: {
@@ -22,27 +25,32 @@ export async function ArticleDetailPage({
     <>
       <Header />
       <DefaultScreenWrapper>
-        <main className={styles.container}>
-          <article className={styles.articleWrapper}>
-            <Heading headingLevel={1} headingLevelStyle={1}>
-              {article.title}
-            </Heading>
-            <span className={styles.infoWrapper}>
-              <span>Elisabeth strain</span>
-              <span>•</span>
-              <span>{format(article.createdAt, "MM/dd/yy")}</span>
-            </span>
-            <ProxyImage
-              width={760}
-              height={504}
-              imageId={article.imageId}
-              alt={`${article.title} cover image`}
-              priority={true}
-            />
-            <MarkdownRenderer markdown={article.content} />
-          </article>
-          <CommentSection articleId={id} />
-        </main>
+        <div className={styles.container}>
+          <main className={styles.wrapper}>
+            <article className={styles.articleWrapper}>
+              <Heading headingLevel={1} headingLevelStyle={1}>
+                {article.title}
+              </Heading>
+              <span className={styles.infoWrapper}>
+                <span>Elisabeth strain</span>
+                <span>•</span>
+                <span>{format(article.createdAt, "MM/dd/yy")}</span>
+              </span>
+              <ProxyImage
+                width={760}
+                height={504}
+                imageId={article.imageId}
+                alt={`${article.title} cover image`}
+                priority={true}
+              />
+              <MarkdownRenderer markdown={article.content} />
+            </article>
+            <CommentSection articleId={id} />
+          </main>
+          <Suspense fallback={<Loading />}>
+            <RelatedArticlesListing excludeArticleId={id} />
+          </Suspense>
+        </div>
       </DefaultScreenWrapper>
     </>
   );
