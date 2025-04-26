@@ -47,7 +47,7 @@ export const ImageInput = (props: ImageInputProps) => {
 
   return (
     <div className={styles.wrapper}>
-      <label>Featured image</label>
+      <label>{props.label}</label>
       <input
         id={props.name}
         name={props.name}

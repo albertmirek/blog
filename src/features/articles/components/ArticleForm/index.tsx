@@ -145,7 +145,7 @@ export const ArticleForm: React.FC<ArticleFormProps> = (props) => {
             />
             <ImageInput
               name={"image"}
-              label={"Featured Image"}
+              label={"Featured image"}
               setImage={setImage}
               existingImageId={props.intialArticleToEdit?.imageId}
               disabled={isSubmitting}
