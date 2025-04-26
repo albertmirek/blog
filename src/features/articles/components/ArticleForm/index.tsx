@@ -12,6 +12,7 @@ import removeMd from "remove-markdown";
 import { Article } from "@/features/articles/lib/server/getArticles.server";
 import { updateArticle } from "@/features/articles/lib/client/updateArticle.client";
 import { createArticle } from "@/features/articles/lib/client/createArticle.client";
+import styles from "./styles.module.scss";
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
@@ -103,7 +104,7 @@ export const ArticleForm: React.FC<ArticleFormProps> = (props) => {
   };
 
   return (
-    <>
+    <div className={styles.container}>
       <Formik
         innerRef={props.innerRef}
         initialValues={
@@ -137,9 +138,10 @@ export const ArticleForm: React.FC<ArticleFormProps> = (props) => {
             <FormInput
               name={"title"}
               type={"text"}
-              placeholder={"Article Title"}
-              label={"Title"}
+              placeholder={"My First Article"}
+              label={"Article Title"}
               disabled={isSubmitting}
+              className={styles.title}
             />
             <ImageInput
               name={"image"}
@@ -149,18 +151,24 @@ export const ArticleForm: React.FC<ArticleFormProps> = (props) => {
               disabled={isSubmitting}
             />
 
-            <div>
-              <label>Content (Markdown)</label>
+            <div className={styles.markdownWrapper}>
+              <label>Content</label>
               <MDEditor
                 aria-disabled={isSubmitting}
                 value={values.content}
+                hideToolbar
                 onChange={(value) => setFieldValue("content", value)}
-                hideToolbar={true}
+                height={500}
+                maxHeight={986}
+                data-color-mode={"light"}
+                textareaProps={{
+                  placeholder: "Supports markdown. Yay!",
+                }}
               />
             </div>
           </Form>
         )}
       </Formik>
-    </>
+    </div>
   );
 };

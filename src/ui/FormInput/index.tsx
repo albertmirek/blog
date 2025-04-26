@@ -1,6 +1,7 @@
 import { FC, InputHTMLAttributes } from "react";
 import { useField } from "formik";
 import styles from "./styles.module.scss";
+import { classNames } from "@/lib/classNames";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -18,7 +19,12 @@ export const FormInput: FC<Props> = ({ name, label, ...props }) => {
     .join(" ");
 
   return (
-    <div className={styles.container}>
+    <div
+      className={classNames(
+        styles.container,
+        props.className ? props.className : "",
+      )}
+    >
       <label htmlFor={name} className={styles.labelForInput}>
         {label}
       </label>

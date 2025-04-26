@@ -4,6 +4,7 @@ import React, { useRef, useState } from "react";
 import { Button } from "@/ui/Button";
 import Image from "next/image";
 import { ProxyImage } from "@/ui/ProxyImage";
+import styles from "./styles.module.scss";
 
 interface ImageInputProps {
   name: string;
@@ -45,7 +46,7 @@ export const ImageInput = (props: ImageInputProps) => {
   };
 
   return (
-    <>
+    <div className={styles.wrapper}>
       <label>Featured image</label>
       <input
         id={props.name}
@@ -75,7 +76,7 @@ export const ImageInput = (props: ImageInputProps) => {
         )
       )}
       {imagePreviewUrl || initialImageId ? (
-        <>
+        <div className={styles.buttonsWrapper}>
           <Button
             color={"primary"}
             onClick={handleUploadImageClick}
@@ -84,6 +85,7 @@ export const ImageInput = (props: ImageInputProps) => {
           >
             Upload new
           </Button>
+          <div className={styles.divider} />
           <Button
             color={"danger"}
             onClick={handleDeleteCurrentImageDelete}
@@ -92,7 +94,7 @@ export const ImageInput = (props: ImageInputProps) => {
           >
             Delete
           </Button>
-        </>
+        </div>
       ) : (
         <Button
           color={"secondary"}
@@ -102,6 +104,6 @@ export const ImageInput = (props: ImageInputProps) => {
           Upload an image
         </Button>
       )}
-    </>
+    </div>
   );
 };
