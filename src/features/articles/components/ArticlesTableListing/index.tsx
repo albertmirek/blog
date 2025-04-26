@@ -1,7 +1,7 @@
 "use client";
 import { Routes } from "@/consts/routes";
 import React from "react";
-import { ArticleDetail } from "@/features/articles/lib/getArticleDetail.server";
+import { ArticleDetail } from "@/features/articles/lib/server/getArticleDetail.server";
 import styles from "./styles.module.scss";
 import { TableActionIcon } from "@/features/articles/components/ArticlesTableListing/parts/Icon";
 import { redirect } from "next/navigation";

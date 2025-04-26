@@ -3,7 +3,7 @@ import styles from "./styles.module.scss";
 import { Heading } from "@/ui/Heading";
 import Link from "next/link";
 import { format } from "date-fns";
-import { ArticleDetail } from "@/features/articles/lib/getArticleDetail.server";
+import { ArticleDetail } from "@/features/articles/lib/server/getArticleDetail.server";
 import { ProxyImage } from "@/ui/ProxyImage";
 import { Routes } from "@/consts/routes";
 type Props = ArticleDetail;

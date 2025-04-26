@@ -9,8 +9,9 @@ import { ImageInput } from "@/ui/ImageInput";
 import { Routes } from "@/consts/routes";
 import { uploadImage } from "@/features/images/lib/uploadImage";
 import removeMd from "remove-markdown";
-import { Article } from "@/features/articles/lib/getArticles.server";
-import { useArticles } from "@/features/articles/hooks/useArticles";
+import { Article } from "@/features/articles/lib/server/getArticles.server";
+import { updateArticle } from "@/features/articles/lib/client/updateArticle.client";
+import { createArticle } from "@/features/articles/lib/client/createArticle.client";
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
@@ -47,8 +48,6 @@ export const ArticleForm: React.FC<ArticleFormProps> = (props) => {
   const [error, setError] = useState<string>("");
   const router = useRouter();
   const isEditVariant = !!(props.type === "edit" && props.intialArticleToEdit);
-
-  const { createArticle, updateArticle } = useArticles();
 
   useEffect(() => {
     if (error && error !== "") {

@@ -1,8 +1,9 @@
-import { getArticles } from "@/features/articles/lib/getArticles.server";
+"use server";
+import { getArticles } from "@/features/articles/lib/server/getArticles.server";
 import {
   ArticleDetail,
   getArticleDetail,
-} from "@/features/articles/lib/getArticleDetail.server";
+} from "@/features/articles/lib/server/getArticleDetail.server";
 
 export const getArticlesWithComments = async (): Promise<ArticleDetail[]> => {
   const articles = await getArticles();

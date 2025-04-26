@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Routes } from "@/consts/routes";
 import React from "react";
 import { DefaultScreenWrapper } from "@/ui/DefaultScreenWrapper";
-import { getArticlesWithComments } from "@/features/articles/lib/getArticlesWithComments";
+import { getArticlesWithComments } from "@/features/articles/lib/server/getArticlesWithComments";
 import { ArticlesTableListing } from "@/features/articles/components/ArticlesTableListing";
 
 async function Page() {

@@ -5,7 +5,7 @@ import { ArticleForm } from "@/features/articles/components/ArticleForm";
 import { useRef } from "react";
 import { FormikProps, FormikValues } from "formik";
 import { Button } from "@/ui/Button";
-import { Article } from "@/features/articles/lib/getArticles.server";
+import { Article } from "@/features/articles/lib/server/getArticles.server";
 
 interface Props {
   article: Article;

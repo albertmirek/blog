@@ -1,3 +1,4 @@
+"use server";
 import config from "@/config";
 
 export interface ApiArticle {

@@ -2,7 +2,7 @@ import { Header } from "@/ui/Header";
 
 import styles from "./style.module.scss";
 import { Heading } from "@/ui/Heading";
-import { getArticleDetail } from "@/features/articles/lib/getArticleDetail.server";
+import { getArticleDetail } from "@/features/articles/lib/server/getArticleDetail.server";
 import { format } from "date-fns";
 import { ProxyImage } from "@/ui/ProxyImage";
 import { MarkdownRenderer } from "@/ui/MarkdownRenderer";

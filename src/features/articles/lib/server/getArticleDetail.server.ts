@@ -1,8 +1,10 @@
+"use server";
+
 import config from "@/config";
 import {
   ApiArticle,
   Article,
-} from "@/features/articles/lib/getArticles.server";
+} from "@/features/articles/lib/server/getArticles.server";
 
 export interface ApiComment {
   articleId: string;
