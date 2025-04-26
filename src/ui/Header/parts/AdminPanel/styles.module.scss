@@ -15,6 +15,17 @@
   }
 }
 
+.dropDownWrapper {
+  display: none;
+
+  @media #{$screen-min-m} {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+  }
+
+}
+
 
 .createArticleItem.createArticleItem { //For higher specificity
   color: $color-primary;

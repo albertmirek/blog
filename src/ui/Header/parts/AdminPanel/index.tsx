@@ -2,6 +2,8 @@ import { FC } from "react";
 import { NavItem } from "@/ui/Header/parts/NavItem";
 import { Routes } from "@/consts/routes";
 import styles from "./styles.module.scss";
+import { ProfileImage } from "@/ui/ProfileImage";
+import { DropDownIcon } from "@/ui/Header/parts/AdminPanel/parts/DropDownIcon";
 
 export const AdminPanel: FC = () => {
   return (
@@ -12,6 +14,10 @@ export const AdminPanel: FC = () => {
         name={"Create Article"}
         className={styles.createArticleItem}
       />
+      <div className={styles.dropDownWrapper}>
+        <DropDownIcon />
+        <ProfileImage width={32} height={32} />
+      </div>
     </div>
   );
 };
