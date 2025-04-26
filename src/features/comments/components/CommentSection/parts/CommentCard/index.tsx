@@ -1,11 +1,10 @@
 import { ApiComment } from "@/features/articles/lib/server/getArticleDetail.server";
 import styles from "./styles.module.scss";
-import Image from "next/image";
-import profilePic from "./profile-picture.jpg";
 import { formatDistance } from "date-fns";
 import { UpvoteIcon } from "@/features/comments/components/CommentSection/parts/CommentCard/parts/UpvoteIcon";
 import { DownvoteIcon } from "@/features/comments/components/CommentSection/parts/CommentCard/parts/DownvoteIcon";
 import { Button } from "@/ui/Button";
+import { ProfileImage } from "@/ui/ProfileImage";
 
 interface Props {
   comment: ApiComment;
@@ -16,13 +15,7 @@ interface Props {
 export const CommentCard = (props: Props) => {
   return (
     <div className={styles.wrapper}>
-      <Image
-        src={profilePic}
-        width={44}
-        height={44}
-        alt={`${props.comment.author} profile picture`}
-        priority={true}
-      />
+      <ProfileImage />
       <div className={styles.contentWrapper}>
         <span className={styles.authorWrapper}>
           <span className={styles.authorName}>{props.comment.author}</span>

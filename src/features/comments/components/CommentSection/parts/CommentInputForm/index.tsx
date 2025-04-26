@@ -1,7 +1,6 @@
-import Image from "next/image";
-import profilePic from "../CommentCard/profile-picture.jpg";
 import styles from "./styles.module.scss";
 import { FormEvent } from "react";
+import { ProfileImage } from "@/ui/ProfileImage";
 
 interface Props {
   onSubmit: (content: string) => void;
@@ -24,7 +23,7 @@ export const CommentInputForm = (props: Props) => {
 
   return (
     <form className={styles.wrapper} onSubmit={handleSubmit}>
-      <Image src={profilePic} alt="profile pic" width={44} height={44} />
+      <ProfileImage />
       <input
         className={styles.textInput}
         id="content"
