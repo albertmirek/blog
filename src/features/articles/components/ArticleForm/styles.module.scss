@@ -1,0 +1,28 @@
+@import 'src/app/variables';
+
+
+.container {
+  width: 80vw;
+  max-width: 80vw;
+
+  @media #{$screen-min-m} {
+    width: 70vw;
+    max-width: 70vw;
+  }
+
+  @media #{$screen-min-l} {
+    width: 760px;
+    max-width: none;
+  }
+}
+
+.title {
+  margin-bottom: 16px;
+}
+
+
+.markdownWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
