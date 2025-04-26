@@ -1,4 +1,3 @@
-import { withAuth } from "@/features/auth/hoc/withAuth";
 import { Header } from "@/ui/Header";
 import { Heading } from "@/ui/Heading";
 import { Button } from "@/ui/Button";
@@ -8,8 +7,10 @@ import React from "react";
 import { DefaultScreenWrapper } from "@/ui/DefaultScreenWrapper";
 import { getArticlesWithComments } from "@/features/articles/lib/server/getArticlesWithComments";
 import { ArticlesTableListing } from "@/features/articles/components/ArticlesTableListing";
+import { getAccessTokenOrLogout } from "@/features/auth/lib/getAccessToken.server";
 
-async function Page() {
+export async function MyArticlesPage() {
+  await getAccessTokenOrLogout();
   const articlesWithComments = (await getArticlesWithComments()).map(
     (article) => ({
       ...article,
@@ -48,5 +49,3 @@ async function Page() {
     </>
   );
 }
-
-export const MyArticlesPage = withAuth(Page);

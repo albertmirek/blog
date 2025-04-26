@@ -6,7 +6,9 @@ function getRequiredEnv(key: string): string {
   return value;
 }
 
-export default {
+const config = {
   apiKey: getRequiredEnv("API_KEY"),
   apiEndpoint: getRequiredEnv("API_ENDPOINT"),
 };
+
+export default config;

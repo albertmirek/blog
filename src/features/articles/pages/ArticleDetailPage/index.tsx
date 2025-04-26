@@ -7,9 +7,14 @@ import { format } from "date-fns";
 import { ProxyImage } from "@/ui/ProxyImage";
 import { MarkdownRenderer } from "@/ui/MarkdownRenderer";
 import { CommentSection } from "@/features/comments/components/CommentSection";
-import { withAuth } from "@/features/auth/hoc/withAuth";
 import { DefaultScreenWrapper } from "@/ui/DefaultScreenWrapper";
-async function Page({ params }: { params: Promise<{ id: string }> }) {
+import { getAccessTokenOrLogout } from "@/features/auth/lib/getAccessToken.server";
+export async function ArticleDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  await getAccessTokenOrLogout();
   const { id } = await params;
   const article = await getArticleDetail(id);
 
@@ -42,5 +47,3 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
     </>
   );
 }
-
-export const ArticleDetailPage = withAuth(Page);

@@ -1,12 +1,14 @@
 import { Header } from "@/ui/Header";
 import { Heading } from "@/ui/Heading";
 import { ArticleListing } from "@/features/articles/components/ArticleListing";
-import { withAuth } from "@/features/auth/hoc/withAuth";
 import { DefaultScreenWrapper } from "@/ui/DefaultScreenWrapper";
 import { Suspense } from "react";
 import { Loading } from "@/ui/Loading";
+import { getAccessTokenOrLogout } from "@/features/auth/lib/getAccessToken.server";
 
-async function Page() {
+export async function DashboardPage() {
+  await getAccessTokenOrLogout();
+
   return (
     <>
       <Header />
@@ -23,5 +25,3 @@ async function Page() {
     </>
   );
 }
-
-export const DashboardPage = withAuth(Page);

@@ -1,10 +1,15 @@
-import { withAuth } from "@/features/auth/hoc/withAuth";
 import { Header } from "@/ui/Header";
 import { DefaultScreenWrapper } from "@/ui/DefaultScreenWrapper";
 import { getArticleDetail } from "@/features/articles/lib/server/getArticleDetail.server";
 import { EditArticlePageClientBoundary } from "@/features/articles/pages/EditArticlePage/editClientBoundary";
+import { getAccessTokenOrLogout } from "@/features/auth/lib/getAccessToken.server";
 
-async function Page({ params }: { params: Promise<{ id: string }> }) {
+export async function EditArticlePage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  await getAccessTokenOrLogout();
   const { id } = await params;
   const articleToEdit = await getArticleDetail(id);
 
@@ -19,4 +24,3 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
     </>
   );
 }
-export const EditArticlePage = withAuth(Page);

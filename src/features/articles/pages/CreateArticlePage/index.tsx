@@ -1,9 +1,11 @@
-import { withAuth } from "@/features/auth/hoc/withAuth";
 import { Header } from "@/ui/Header";
 import { DefaultScreenWrapper } from "@/ui/DefaultScreenWrapper";
 import { CreateArticlePageClientBoundary } from "@/features/articles/pages/CreateArticlePage/createPageclientBoundary";
+import { getAccessTokenOrLogout } from "@/features/auth/lib/getAccessToken.server";
 
-const Page = () => {
+export const CreateArticlePage = async () => {
+  await getAccessTokenOrLogout();
+
   return (
     <>
       <Header />
@@ -15,5 +17,3 @@ const Page = () => {
     </>
   );
 };
-
-export const CreateArticlePage = withAuth(Page);
