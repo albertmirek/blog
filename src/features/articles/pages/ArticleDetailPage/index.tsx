@@ -6,7 +6,7 @@ import { getArticleDetail } from "@/features/articles/lib/getArticleDetail.serve
 import { format } from "date-fns";
 import { ProxyImage } from "@/ui/ProxyImage";
 import { MarkdownRenderer } from "@/ui/MarkdownRenderer";
-import { CommentSection } from "@/features/articles/components/CommentSection";
+import { CommentSection } from "@/features/comments/components/CommentSection";
 import { withAuth } from "@/features/auth/hoc/withAuth";
 import { DefaultScreenWrapper } from "@/ui/DefaultScreenWrapper";
 async function Page({ params }: { params: Promise<{ id: string }> }) {
@@ -35,21 +35,7 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
             />
             <MarkdownRenderer markdown={article.content} />
           </article>
-          <CommentSection
-            articleId={id}
-            initialComments={[
-              {
-                commentId: "1",
-                articleId: article.articleId,
-                postedAt: new Date(Date.now() - 1000 * (60 * 5)),
-                content:
-                  "In its flawless grace and superior self-sufficiency I have seen a symbol of the perfect beauty and bland impersonality of the universe itself, objectively considered, and in its air of silent mystery there resides for me all the wonder and fascination of the unknown",
-                author: "Albert Mírek",
-                score: 42,
-              },
-            ]}
-          />
-          {/*TODO*/}
+          <CommentSection articleId={id} />
         </main>
       </DefaultScreenWrapper>
     </>

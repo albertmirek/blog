@@ -1,11 +1,16 @@
-import { Comment } from "@/features/articles/lib/getArticleDetail.server";
+import { ApiComment } from "@/features/articles/lib/server/getArticleDetail.server";
 import styles from "./styles.module.scss";
 import Image from "next/image";
 import profilePic from "./profile-picture.jpg";
 import { formatDistance } from "date-fns";
+import { UpvoteIcon } from "@/features/comments/components/CommentSection/parts/CommentCard/parts/UpvoteIcon";
+import { DownvoteIcon } from "@/features/comments/components/CommentSection/parts/CommentCard/parts/DownvoteIcon";
+import { Button } from "@/ui/Button";
 
 interface Props {
-  comment: Comment;
+  comment: ApiComment;
+  onUpvote: (articleId: string) => void;
+  onDownvote: (articleId: string) => void;
 }
 
 export const CommentCard = (props: Props) => {
@@ -28,13 +33,29 @@ export const CommentCard = (props: Props) => {
         <p className={styles.content}>{props.comment.content}</p>
         <span className={styles.scoreWrapper}>
           <span>
-            {props.comment.score > 0 ? "+" : "-"}
+            {props.comment.score > 0
+              ? "+"
+              : props.comment.score === 0
+                ? ""
+                : "-"}
             {props.comment.score}
           </span>
           <div className={styles.divider} />
-          <button className={styles.scoringButton}>ᐱ</button>
+          <Button
+            color={"primary"}
+            isOutline={true}
+            onClick={() => props.onUpvote(props.comment.commentId)}
+          >
+            <UpvoteIcon />
+          </Button>
           <div className={styles.divider} />
-          <button className={styles.scoringButton}>ᐯ</button>
+          <Button
+            color={"primary"}
+            isOutline={true}
+            onClick={() => props.onDownvote(props.comment.commentId)}
+          >
+            <DownvoteIcon />
+          </Button>
           <div className={styles.divider} />
         </span>
       </div>

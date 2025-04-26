@@ -12,8 +12,11 @@ export const CommentInputForm = (props: Props) => {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
-    const content = formData.get("content");
-    if (content && content === "") {
+    const raw = formData.get("content");
+
+    const content = typeof raw === "string" ? raw.trim() : "";
+
+    if (content && content !== "") {
       props.onSubmit(content);
       form.reset();
     }
@@ -21,12 +24,13 @@ export const CommentInputForm = (props: Props) => {
 
   return (
     <form className={styles.wrapper} onSubmit={handleSubmit}>
-      <Image src={profilePic} alt={"profile pic"} width={44} height={44} />
+      <Image src={profilePic} alt="profile pic" width={44} height={44} />
       <input
         className={styles.textInput}
-        name={"content"}
-        type={"text"}
-        placeholder={"Join the discussion"}
+        id="content"
+        name="content"
+        type="text"
+        placeholder="Join the discussion"
       />
     </form>
   );
