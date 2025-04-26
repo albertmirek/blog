@@ -9,6 +9,10 @@ import {
   setMyArticlesAction,
 } from "@/features/articles/store/slice";
 import { deleteArticle } from "@/features/articles/lib/client/deleteArticle.client";
+import {
+  PropertyType,
+  sortArticlesByProperty,
+} from "@/features/articles/lib/sortArticlesByProperty";
 
 export function useArticles(initialArticles: ApiArticleDetail[]) {
   const dispatch = useDispatch();
@@ -16,6 +20,7 @@ export function useArticles(initialArticles: ApiArticleDetail[]) {
     (state: RootState) => state.articles.myArticles,
   );
 
+  console.log("my", myArticles);
   useEffect(() => {
     dispatch(setMyArticlesAction({ articles: initialArticles }));
   }, [initialArticles, dispatch]);
@@ -29,5 +34,13 @@ export function useArticles(initialArticles: ApiArticleDetail[]) {
     });
   };
 
-  return { myArticles, handleArticleDelete };
+  const handleOrderBy = (propertyType: PropertyType, order: "asc" | "desc") => {
+    dispatch(
+      setMyArticlesAction({
+        articles: sortArticlesByProperty(myArticles, propertyType, order),
+      }),
+    );
+  };
+
+  return { myArticles, handleArticleDelete, handleOrderBy };
 }
