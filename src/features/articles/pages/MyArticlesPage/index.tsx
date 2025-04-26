@@ -40,7 +40,7 @@ async function Page() {
             headingLevel={1}
             elementToRight={CreateArticleButton}
           >
-            My articles - still lot things to do
+            My articles
           </Heading>
           <ArticlesTableListing articles={articlesWithComments} />
         </DefaultScreenWrapper>

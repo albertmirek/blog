@@ -23,7 +23,7 @@ export const CommentInputForm = (props: Props) => {
 
   return (
     <form className={styles.wrapper} onSubmit={handleSubmit}>
-      <ProfileImage />
+      <ProfileImage width={44} height={44} />
       <input
         className={styles.textInput}
         id="content"

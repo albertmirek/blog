@@ -15,7 +15,7 @@ interface Props {
 export const CommentCard = (props: Props) => {
   return (
     <div className={styles.wrapper}>
-      <ProfileImage />
+      <ProfileImage width={44} height={44} />
       <div className={styles.contentWrapper}>
         <span className={styles.authorWrapper}>
           <span className={styles.authorName}>{props.comment.author}</span>
