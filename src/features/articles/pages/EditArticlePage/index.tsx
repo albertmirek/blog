@@ -1,5 +1,5 @@
 import { withAuth } from "@/features/auth/hoc/withAuth";
-import { Header } from "@/components/Header";
+import { Header } from "@/ui/Header";
 import { DefaultScreenWrapper } from "@/ui/DefaultScreenWrapper";
 import { getArticleDetail } from "@/features/articles/lib/getArticleDetail.server";
 import { EditArticlePageClientBoundary } from "@/features/articles/pages/EditArticlePage/editClientBoundary";

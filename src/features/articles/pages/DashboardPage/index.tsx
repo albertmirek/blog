@@ -1,5 +1,5 @@
-import { Header } from "@/components/Header";
-import { Heading } from "../../../../ui/Heading";
+import { Header } from "@/ui/Header";
+import { Heading } from "@/ui/Heading";
 import { ArticleListing } from "@/features/articles/components/ArticleListing";
 import { withAuth } from "@/features/auth/hoc/withAuth";
 import { DefaultScreenWrapper } from "@/ui/DefaultScreenWrapper";

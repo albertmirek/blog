@@ -1,5 +1,5 @@
 import { withAuth } from "@/features/auth/hoc/withAuth";
-import { Header } from "@/components/Header";
+import { Header } from "@/ui/Header";
 import { Heading } from "@/ui/Heading";
 import { Button } from "@/ui/Button";
 import Link from "next/link";

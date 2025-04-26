@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Header } from "@/components/Header";
+import { Header } from "../../../../ui/Header";
 import { LoginForm } from "@/features/auth/components/LoginForm";
 import styles from "./styles.module.scss";
 

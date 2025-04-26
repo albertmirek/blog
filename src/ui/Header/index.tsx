@@ -1,9 +1,9 @@
 import styles from "./styles.module.scss";
-import { Logo } from "@/components/Header/parts/Logo";
+import { Logo } from "@/ui/Header/parts/Logo";
 import { FC } from "react";
 import { Routes } from "@/consts/routes";
-import { NavItem } from "@/components/Header/parts/NavItem";
-import { AdminPanel } from "@/components/Header/parts/AdminPanel";
+import { NavItem } from "@/ui/Header/parts/NavItem";
+import { AdminPanel } from "@/ui/Header/parts/AdminPanel";
 import { cookies } from "next/headers";
 
 export const Header: FC = async () => {

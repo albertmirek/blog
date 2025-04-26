@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { NavItem } from "@/components/Header/parts/NavItem";
+import { NavItem } from "@/ui/Header/parts/NavItem";
 import { Routes } from "@/consts/routes";
 import styles from "./styles.module.scss";
 

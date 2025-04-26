@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Header } from "@/components/Header";
+import { Header } from "../../../../ui/Header";
 
 export const AboutPage: FC = () => {
   return (

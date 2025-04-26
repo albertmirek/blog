@@ -1,11 +1,11 @@
-import { Header } from "@/components/Header";
+import { Header } from "@/ui/Header";
 
 import styles from "./style.module.scss";
 import { Heading } from "@/ui/Heading";
 import { getArticleDetail } from "@/features/articles/lib/getArticleDetail.server";
 import { format } from "date-fns";
 import { ProxyImage } from "@/ui/ProxyImage";
-import { MarkdownRenderer } from "../../../../ui/MarkdownRenderer";
+import { MarkdownRenderer } from "@/ui/MarkdownRenderer";
 import { CommentSection } from "@/features/articles/components/CommentSection";
 import { withAuth } from "@/features/auth/hoc/withAuth";
 import { DefaultScreenWrapper } from "@/ui/DefaultScreenWrapper";
