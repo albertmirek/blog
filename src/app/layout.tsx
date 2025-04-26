@@ -1,6 +1,15 @@
 import "./globals.scss";
 import React from "react";
 import { ReduxProvider } from "@/store/ReduxProvider";
+import Head from "next/head";
+
+export const metadata = {
+  title: "Blog",
+  appleWebApp: {
+    title: "MyWebSite",
+  },
+  manifest: "./manifest.json",
+};
 
 export default function RootLayout({
   children,
@@ -9,6 +18,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        <title>Blog</title>
+        <meta
+          name="apple-mobile-web-app-title"
+          content="MyWebSite"
+          key={"apple-mobile-web-app-title"}
+        />
+      </Head>
       <body>
         <ReduxProvider>{children}</ReduxProvider>
       </body>
