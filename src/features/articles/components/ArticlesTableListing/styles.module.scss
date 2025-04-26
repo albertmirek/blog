@@ -14,6 +14,11 @@
   thead {
     font-weight: bold;
     border-bottom: 2px solid $border-light;
+    max-width: 1148px;
+  }
+
+  tbody {
+    max-width: 1131px;
   }
 
   th,
@@ -96,9 +101,12 @@
 .actions {
   @media #{$screen-min-m} {
     width: 115px;
+
+    > button:first-child {
+      margin-right: 16px;
+    }
   }
 }
-
 
 .iconButton {
   background: none;

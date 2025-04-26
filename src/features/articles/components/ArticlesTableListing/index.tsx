@@ -15,7 +15,7 @@ export const ArticlesTableListing = (props: Props) => {
 
   return (
     <table className={styles.table}>
-      <thead>
+      <thead className={styles.tablHead}>
         <tr>
           <th className={styles.checkBox}>
             <input type="checkbox" />
@@ -27,7 +27,7 @@ export const ArticlesTableListing = (props: Props) => {
           <th className={styles.actions}>Actions</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className={styles.tableBody}>
         {props.articles.map((article, index) => (
           <tr key={index}>
             <td className={styles.checkBox}>
@@ -46,12 +46,6 @@ export const ArticlesTableListing = (props: Props) => {
               <span>{article.comments.length}</span>
             </td>
             <td className={styles.actions}>
-              {/*<a
-                href={Routes.EDIT_ARTICLE(article.articleId)}
-                className={styles.iconButton}
-              >
-                ✏️️
-              </a>*/}
               <TableActionIcon
                 icon={"edit"}
                 onClick={() => redirect(Routes.EDIT_ARTICLE(article.articleId))}
