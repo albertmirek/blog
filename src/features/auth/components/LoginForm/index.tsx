@@ -70,7 +70,7 @@ export const LoginForm = () => {
                 placeholder={"JanNovak"}
                 label={"Username"}
                 disabled={isSubmitting}
-                autocomplete={"username"}
+                autoComplete={"username"}
               />
               <FormInput
                 name={"password"}
@@ -78,7 +78,7 @@ export const LoginForm = () => {
                 placeholder={"********"}
                 label={"Password"}
                 disabled={isSubmitting}
-                autocomplete={"current-password"}
+                autoComplete={"current-password"}
               />
               <div className={styles.buttonWrapper}>
                 <Button

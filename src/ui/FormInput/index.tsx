@@ -1,34 +1,33 @@
-import { FC, HTMLInputAutoCompleteAttribute } from "react";
-import styles from "@/features/auth/components/LoginForm/styles.module.scss";
-import { ErrorMessage, Field } from "formik";
-import { InputType } from "node:zlib";
+import { FC, InputHTMLAttributes } from "react";
+import { useField } from "formik";
+import styles from "./styles.module.scss";
 
-interface Props {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
-  placeholder: string;
-  type: InputType;
   label: string;
-  disabled: boolean;
-  autocomplete?: HTMLInputAutoCompleteAttribute;
 }
-export const FormInput: FC<Props> = (props: Props) => {
+
+export const FormInput: FC<Props> = ({ name, label, ...props }) => {
+  const [field, meta] = useField({ name, ...props });
+
+  const inputClassName = [
+    styles.inputField,
+    meta.touched && meta.error ? styles.errorInput : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <div className={styles.inputWrapper}>
-      <label htmlFor={props.name} className={styles.labelForInput}>
-        {props.label}
+    <div className={styles.container}>
+      <label htmlFor={name} className={styles.labelForInput}>
+        {label}
       </label>
-      <Field
-        id={props.name}
-        name={props.name}
-        type={props.type}
-        placeholder={props.placeholder}
-        className={styles.inputField}
-        disabled={props.disabled}
-        autoComplete={props.autocomplete}
-      />
-      <ErrorMessage name={props.name}>
-        {(msg) => <span className={styles.errorMessage}>{msg}</span>}
-      </ErrorMessage>
+      <div className={styles.inputWrapper}>
+        <input id={name} {...field} {...props} className={inputClassName} />
+        {meta.touched && meta.error && (
+          <span className={styles.errorMessage}>{meta.error}</span>
+        )}
+      </div>
     </div>
   );
 };

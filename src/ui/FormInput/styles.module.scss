@@ -1,6 +1,6 @@
 @import '../../app/variables';
 
-.inputWrapper {
+.container {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -12,10 +12,26 @@
   line-height: 24px;
 }
 
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .inputField {
   padding: 6px 0 6px 12px;
   border-radius: 4px;
   border: 1px solid $border-light;
+
+  &:focus {
+    box-shadow: 0 0 6px 0 #2079ff;
+    outline: 1px solid #007bff;
+  }
+
+  &.errorInput {
+    box-shadow: 0 0 6px 0 $color-danger;
+    outline: 1px solid $color-danger;
+  }
 }
 
 .errorMessage {
