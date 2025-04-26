@@ -47,14 +47,10 @@ export const LoginForm = () => {
 
               if (!res.ok) {
                 const data = await res.json();
-                throw new Error(data.message || "Login failed");
+                throw new Error(data.error || "Login failed");
               }
 
-              if (res.ok) {
-                router.push(Routes.DASHBOARD);
-              } else {
-                setError("Login failed");
-              }
+              router.push(Routes.DASHBOARD);
             } catch (err) {
               setError(String(err));
             } finally {

@@ -10,7 +10,6 @@ interface LoginRequest {
   password: string;
 }
 
-// Returns 201; 400; 401
 export async function POST(request: NextRequest) {
   try {
     const { username, password } = (await request.json()) as LoginRequest;
@@ -29,6 +28,13 @@ export async function POST(request: NextRequest) {
       },
       body: JSON.stringify({ username, password }),
     });
+
+    if (res.status === 400) {
+      return NextResponse.json(
+        { error: "Invalid username or password" },
+        { status: 400 },
+      );
+    }
 
     if (!res.ok) {
       return NextResponse.json(
