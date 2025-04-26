@@ -14,8 +14,30 @@
 
 .primary {
   background-color: $background-primary;
+
+  &.outlineButton {
+    background-color: transparent;
+    color: $color-primary;
+    padding: 0;
+  }
 }
 
 .secondary {
   background-color: $background-secondary;
+
+  &.outlineButton {
+    background-color: transparent;
+    color: $color-text-secondary;
+    padding: 0;
+  }
+}
+
+.danger {
+  background-color: $background-danger;
+
+  &.outlineButton {
+    background-color: transparent;
+    color: $color-danger;
+    padding: 0;
+  }
 }

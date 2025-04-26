@@ -17,7 +17,6 @@ export const EditArticlePageClientBoundary = (props: Props) => {
   const PublishArticleButton = (
     <Button
       color={"primary"}
-      useSpan={true}
       type={"submit"}
       onClick={(e) => {
         e.preventDefault();

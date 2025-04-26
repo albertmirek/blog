@@ -1,12 +1,18 @@
+"use client";
 import { Routes } from "@/consts/routes";
 import React from "react";
 import { ArticleDetail } from "@/features/articles/lib/getArticleDetail.server";
 import styles from "./styles.module.scss";
+import { TableActionIcon } from "@/features/articles/components/ArticlesTableListing/parts/Icon";
+import { redirect } from "next/navigation";
 
 interface Props {
   articles: ArticleDetail[];
 }
 export const ArticlesTableListing = (props: Props) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {};
+
   return (
     <table className={styles.table}>
       <thead>
@@ -40,13 +46,17 @@ export const ArticlesTableListing = (props: Props) => {
               <span>{article.comments.length}</span>
             </td>
             <td className={styles.actions}>
-              <a
+              {/*<a
                 href={Routes.EDIT_ARTICLE(article.articleId)}
                 className={styles.iconButton}
               >
                 ✏️️
-              </a>
-              <button className={styles.iconButton}>🗑️</button>
+              </a>*/}
+              <TableActionIcon
+                icon={"edit"}
+                onClick={() => redirect(Routes.EDIT_ARTICLE(article.articleId))}
+              />
+              <TableActionIcon icon={"delete"} onClick={handleDelete} />
             </td>
           </tr>
         ))}

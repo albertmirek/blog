@@ -11,7 +11,6 @@ export const CreateArticlePageClientBoundary = () => {
   const PublishArticleButton = (
     <Button
       color={"primary"}
-      useSpan={true}
       type={"submit"}
       onClick={(e) => {
         e.preventDefault();

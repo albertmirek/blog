@@ -80,13 +80,15 @@ export const ImageInput = (props: ImageInputProps) => {
             color={"primary"}
             onClick={handleUploadImageClick}
             disabled={props.disabled}
+            isOutline={true}
           >
             Upload new
           </Button>
           <Button
-            color={"primary"}
+            color={"danger"}
             onClick={handleDeleteCurrentImageDelete}
             disabled={props.disabled}
+            isOutline={true}
           >
             Delete
           </Button>
