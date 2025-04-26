@@ -7,7 +7,7 @@ import { Loading } from "@/ui/Loading";
 import { getAccessTokenOrLogout } from "@/features/auth/lib/getAccessToken.server";
 
 export async function DashboardPage() {
-  await getAccessTokenOrLogout();
+  await getAccessTokenOrLogout(true);
 
   return (
     <>
