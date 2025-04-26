@@ -28,7 +28,7 @@ export const CommentSection = (props: Props) => {
       <CommentInputForm
         onSubmit={(content) => {
           submitComment({
-            postedAt: new Date().toString(),
+            postedAt: new Date().toISOString(),
             content: content,
             articleId: articleId,
             author: "Elisabeth Strain",
