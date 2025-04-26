@@ -6,8 +6,8 @@ import Link from "next/link";
 import { Routes } from "@/consts/routes";
 import React from "react";
 import { DefaultScreenWrapper } from "@/ui/DefaultScreenWrapper";
-import styles from "./styles.module.scss";
 import { getArticlesWithComments } from "@/features/articles/lib/getArticlesWithComments";
+import { ArticlesTableListing } from "@/features/articles/components/ArticlesTableListing";
 
 async function Page() {
   const articlesWithComments = await getArticlesWithComments();
@@ -33,50 +33,7 @@ async function Page() {
           >
             My articles - still lot things to do
           </Heading>
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th className={styles.checkBox}>
-                  <input type="checkbox" />
-                </th>
-                <th className={styles.title}>Article title</th>
-                <th className={styles.perex}>Perex</th>
-                <th className={styles.author}>Author</th>
-                <th className={styles.comments}># of comments</th>
-                <th className={styles.actions}>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {articlesWithComments.map((article, index) => (
-                <tr key={index}>
-                  <td className={styles.checkBox}>
-                    <input type="checkbox" />
-                  </td>
-                  <td className={styles.title}>
-                    <span>{article.title}</span>
-                  </td>
-                  <td className={styles.perex}>
-                    <span>{article.perex}</span>
-                  </td>
-                  <td className={styles.author}>
-                    <span>Elisabeth Strain</span>
-                  </td>
-                  <td className={styles.comments}>
-                    <span>{article.comments.length}</span>
-                  </td>
-                  <td className={styles.actions}>
-                    <a
-                      href={Routes.EDIT_ARTICLE(article.articleId)}
-                      className={styles.iconButton}
-                    >
-                      ✏️️
-                    </a>
-                    <button className={styles.iconButton}>🗑️</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <ArticlesTableListing articles={articlesWithComments} />
         </DefaultScreenWrapper>
       </main>
     </>
