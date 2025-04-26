@@ -64,7 +64,7 @@ export const ArticleForm: React.FC<ArticleFormProps> = (props) => {
 
     const uploadedImageId = (await uploadImage(image))[0].imageId;
     const perex = getPerex(values.content);
-    await createArticle({
+    const { articleId } = await createArticle({
       title: values.title,
       content: values.content,
       perex: perex,
@@ -72,7 +72,7 @@ export const ArticleForm: React.FC<ArticleFormProps> = (props) => {
     });
 
     alert("Article published");
-    router.push(Routes.MY_ARTICLES);
+    router.push(Routes.ARTICLE_DETAIL(articleId));
   };
 
   const handleUpdate = async (values: FormikValues) => {
