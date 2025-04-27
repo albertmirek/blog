@@ -96,4 +96,4 @@ pw: `albertmirek-blog-test-2`
 ## TODO next
 - paginate articles
 - completing tests for all components
-- integration tests
+- e2e tests
