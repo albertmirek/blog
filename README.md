@@ -82,7 +82,7 @@ Step-by-step instructions to get your project running locally:
 2. added .nvmrc file to ensure node compability
 
 ```bash
-  nvm exec yarn dev
+  pnpm dev
 ```
 
 3. Since it is a single tenant application only one user was created:
