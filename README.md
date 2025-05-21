@@ -11,6 +11,18 @@
 
 ## Completed Work
 
+The work was completed within the assignment available features. Some of the endpoint did not work or did not exist to make the application
+complete (e.g. refreshToken/token validation, comments endpoint not working, no registration endpoint....)
+
+API docs:
+https://github.com/Applifting/fullstack-exercise/blob/master/api.yml
+
+The styling was not taken to full extend in regard to responsiveness, due to missing wireframes for mobile display, therefore, just simple
+prereqs. to be able to view it on mobile
+
+Wireframes:
+https://github.com/Applifting/fullstack-exercise/blob/master/api.yml
+
 Since it is a single-tenant application, every page apart from /about page(for which no designs were provided) were hidden behind logged state.
 
 After user loggin it is possible to do all the listed functionality. Since the accessToken provided by api has expiration of 1 hour and no other refreshToken was provided, user is loggedout after 1 hour.
