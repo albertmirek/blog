@@ -1,6 +1,5 @@
 import "./globals.scss";
 import React from "react";
-import { ReduxProvider } from "@/store/ReduxProvider";
 import Head from "next/head";
 
 export const metadata = {
@@ -27,9 +26,7 @@ export default function RootLayout({
         />
         <meta name="description" content="Single tenant blogging application" />
       </Head>
-      <body>
-        <ReduxProvider>{children}</ReduxProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

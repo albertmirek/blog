@@ -2,14 +2,7 @@
 
 import { ApiComment } from "@/features/articles/lib/server/getArticleDetail.server";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addComment,
-  downvoteComment,
-  setComments,
-  upvoteComment,
-} from "@/features/comments/store/slice";
-import { RootState } from "@/store/store";
+import { useStore } from "@/store/store";
 
 const getMockedComments = (articleId: string): ApiComment[] => {
   return [
@@ -26,23 +19,23 @@ const getMockedComments = (articleId: string): ApiComment[] => {
 };
 
 export function useComments(articleId: string) {
-  const dispatch = useDispatch();
-  const comments = useSelector((state: RootState) => state.comments.comments);
+  const { comments, setComments, addComment, downvoteComment, upvoteComment } =
+    useStore((state) => state);
 
   useEffect(() => {
-    dispatch(setComments({ comments: getMockedComments(articleId) }));
-  }, [articleId, dispatch]);
+    setComments(getMockedComments(articleId));
+  }, [articleId, setComments]);
 
   const submitComment = (comment: ApiComment) => {
-    dispatch(addComment({ comment }));
+    addComment(comment);
   };
 
   const handleCommentUpvote = (commentId: string) => {
-    dispatch(upvoteComment({ commentId }));
+    upvoteComment(commentId);
   };
 
   const handleCommentDownvote = (commentId: string) => {
-    dispatch(downvoteComment({ commentId }));
+    downvoteComment(commentId);
   };
 
   /*const submitComment = async (content: string, author: string) => {
