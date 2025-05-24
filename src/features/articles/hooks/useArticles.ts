@@ -2,45 +2,39 @@
 
 import { ApiArticleDetail } from "@/features/articles/lib/server/getArticleDetail.server";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/store/store";
-import {
-  deleteArticleAction,
-  setMyArticlesAction,
-} from "@/features/articles/store/slice";
 import { deleteArticle } from "@/features/articles/lib/client/deleteArticle.client";
 import {
   PropertyType,
   sortArticlesByProperty,
 } from "@/features/articles/lib/sortArticlesByProperty";
+import { useStore } from "@/store/store";
 
 export function useArticles(initialArticles: ApiArticleDetail[]) {
-  const dispatch = useDispatch();
-  const myArticles = useSelector(
-    (state: RootState) => state.articles.myArticles,
+  const myArticles = useStore((state) => state.myArticles);
+  const { setMyArticlesAction, deleteArticleAction } = useStore(
+    (state) => state.articleActions,
   );
 
-  console.log("my", myArticles);
   useEffect(() => {
-    dispatch(setMyArticlesAction({ articles: initialArticles }));
-  }, [initialArticles, dispatch]);
+    setMyArticlesAction(initialArticles);
+  }, [initialArticles, setMyArticlesAction]);
 
   const handleArticleDelete = async (id: string) => {
     await deleteArticle(id).then((res) => {
       if (res.ok) {
-        dispatch(deleteArticleAction(id));
+        deleteArticleAction(id);
         alert("article deleted");
       }
     });
   };
 
   const handleOrderBy = (propertyType: PropertyType, order: "asc" | "desc") => {
-    const sorted = sortArticlesByProperty(myArticles, propertyType, order);
-    dispatch(
-      setMyArticlesAction({
-        articles: sorted,
-      }),
+    const sortedArticles = sortArticlesByProperty(
+      myArticles,
+      propertyType,
+      order,
     );
+    setMyArticlesAction(sortedArticles);
   };
 
   return { myArticles, handleArticleDelete, handleOrderBy };

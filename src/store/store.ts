@@ -1,13 +1,16 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { default as articleReducer } from "@/features/articles/store/slice";
-import { default as commentsReducer } from "@/features/comments/store/slice";
+import { create } from "zustand";
+import {
+  ArticleSlice,
+  createArticleSlice,
+} from "@/features/articles/store/slice";
+import {
+  CommentsSlice,
+  createCommentsSlice,
+} from "@/features/comments/store/slice";
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export type RootState = ArticleSlice & CommentsSlice;
 
-export const store = configureStore({
-  reducer: {
-    articles: articleReducer,
-    comments: commentsReducer,
-  },
-});
+export const useStore = create<RootState>()((...a) => ({
+  ...createArticleSlice(...a),
+  ...createCommentsSlice(...a),
+}));

@@ -1,67 +1,48 @@
 import { ApiComment } from "@/features/articles/lib/server/getArticleDetail.server";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { StateCreator } from "zustand/vanilla";
 
-interface CommentsState {
+type State = {
   comments: ApiComment[];
-}
-
-const initialState: CommentsState = {
-  comments: [],
 };
 
-interface SetCommentsActionPayload {
-  comments: ApiComment[];
-}
+type Actions = {
+  setComments: (comments: ApiComment[]) => void;
+  addComment: (comments: ApiComment) => void;
+  upvoteComment: (commentId: string) => void;
+  downvoteComment: (commentId: string) => void;
+};
 
-interface AddCommentsActionPayload {
-  comment: ApiComment;
-}
+export type CommentsSlice = State & { commentsActions: Actions };
 
-interface CommentVoteActionPayload {
-  commentId: string;
-}
-
-const commentsSlice = createSlice({
-  name: "comments",
-  initialState,
-  reducers: {
-    setComments: (state, action: PayloadAction<SetCommentsActionPayload>) => {
-      state.comments = action.payload.comments;
-    },
-
-    addComment: (state, action: PayloadAction<AddCommentsActionPayload>) => {
-      state.comments = [action.payload.comment, ...state.comments];
-    },
-
-    upvoteComment: (state, action: PayloadAction<CommentVoteActionPayload>) => {
-      state.comments = state.comments.map((comment: ApiComment) => {
-        if (comment.commentId === action.payload.commentId) {
-          return {
-            ...comment,
-            score: comment.score + 1,
-          };
-        }
-        return comment;
-      });
-    },
-
-    downvoteComment: (
-      state,
-      action: PayloadAction<CommentVoteActionPayload>,
-    ) => {
-      state.comments = state.comments.map((comment: ApiComment) => {
-        if (comment.commentId === action.payload.commentId) {
-          return {
-            ...comment,
-            score: comment.score - 1,
-          };
-        }
-        return comment;
-      });
-    },
+export const createCommentsSlice: StateCreator<CommentsSlice> = (set) => ({
+  comments: [],
+  commentsActions: {
+    setComments: (comments) => set(() => ({ comments: comments })),
+    addComment: (comment) =>
+      set((state) => ({ comments: [comment, ...state.comments] })),
+    upvoteComment: (commentId) =>
+      set((state) => ({
+        comments: state.comments.map((comment) => {
+          if (comment.commentId === commentId) {
+            return {
+              ...comment,
+              score: comment.score + 1,
+            };
+          }
+          return comment;
+        }),
+      })),
+    downvoteComment: (commentId) =>
+      set((state) => ({
+        comments: state.comments.map((comment) => {
+          if (comment.commentId === commentId) {
+            return {
+              ...comment,
+              score: comment.score - 1,
+            };
+          }
+          return comment;
+        }),
+      })),
   },
 });
-
-export const { setComments, addComment, upvoteComment, downvoteComment } =
-  commentsSlice.actions;
-export default commentsSlice.reducer;

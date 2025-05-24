@@ -1,36 +1,27 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ApiArticleDetail } from "@/features/articles/lib/server/getArticleDetail.server";
+import { StateCreator } from "zustand/vanilla";
 
-interface ArticleState {
+type State = {
   myArticles: ApiArticleDetail[];
-}
-
-const initialState: ArticleState = {
-  myArticles: [],
 };
 
-interface SetArticlesActionPayload {
-  articles: ApiArticleDetail[];
-}
+type Actions = {
+  setMyArticlesAction: (articles: ApiArticleDetail[]) => void;
+  deleteArticleAction: (articleIdToDelete: string) => void;
+};
 
-const articleSlice = createSlice({
-  name: "articles",
-  initialState,
-  reducers: {
-    setMyArticlesAction: (
-      state,
-      action: PayloadAction<SetArticlesActionPayload>,
-    ) => {
-      state.myArticles = action.payload.articles;
-    },
-    deleteArticleAction: (state, action: PayloadAction<string>) => {
-      state.myArticles = state.myArticles.filter(
-        (article) => article.articleId !== action.payload,
-      );
-    },
+export type ArticleSlice = State & { articleActions: Actions };
+
+export const createArticleSlice: StateCreator<ArticleSlice> = (set) => ({
+  myArticles: [],
+  articleActions: {
+    setMyArticlesAction: (articles) => set(() => ({ myArticles: articles })),
+    deleteArticleAction: (articleIdToDelete) =>
+      set((state) => ({
+        myArticles: state.myArticles.filter(
+          (article: ApiArticleDetail) =>
+            article.articleId !== articleIdToDelete,
+        ),
+      })),
   },
 });
-
-export const { setMyArticlesAction, deleteArticleAction } =
-  articleSlice.actions;
-export default articleSlice.reducer;
