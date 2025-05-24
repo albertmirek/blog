@@ -10,8 +10,9 @@ import {
 import { useStore } from "@/store/store";
 
 export function useArticles(initialArticles: ApiArticleDetail[]) {
-  const { setMyArticlesAction, deleteArticleAction, myArticles } = useStore(
-    (state) => state,
+  const myArticles = useStore((state) => state.myArticles);
+  const { setMyArticlesAction, deleteArticleAction } = useStore(
+    (state) => state.articleActions,
   );
 
   useEffect(() => {

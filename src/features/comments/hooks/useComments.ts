@@ -19,8 +19,10 @@ const getMockedComments = (articleId: string): ApiComment[] => {
 };
 
 export function useComments(articleId: string) {
-  const { comments, setComments, addComment, downvoteComment, upvoteComment } =
-    useStore((state) => state);
+  const comments = useStore((state) => state.comments);
+  const { setComments, addComment, downvoteComment, upvoteComment } = useStore(
+    (state) => state.commentsActions,
+  );
 
   useEffect(() => {
     setComments(getMockedComments(articleId));
